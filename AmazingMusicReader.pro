@@ -1,11 +1,7 @@
-QT += core
-QT -= gui
+QT += core gui widgets
 
 TARGET = AmazingMusicReader
-CONFIG += console
-CONFIG -= app_bundle
 
 TEMPLATE = app
 
 SOURCES += main.cpp
-

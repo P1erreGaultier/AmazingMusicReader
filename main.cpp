@@ -1,8 +1,13 @@
-#include <QCoreApplication>
+#include <QApplication>
+
+#include "keyboardwidget.hpp"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
+
+    KeyboardWidget keyboard;
+    keyboard.show();
 
     return a.exec();
 }

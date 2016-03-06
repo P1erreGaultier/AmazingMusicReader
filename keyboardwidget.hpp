@@ -1,9 +1,9 @@
-#ifndef KEYBOARDWIDGET_H
-#define KEYBOARDWIDGET_H
+#ifndef KEYBOARDWIDGET_HPP
+#define KEYBOARDWIDGET_HPP
 
-#include <QWidget>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QWidget>
 
 class KeyboardWidget : public QWidget
 {
@@ -12,16 +12,15 @@ class KeyboardWidget : public QWidget
 private:
     QHBoxLayout layout__;
     QVector<QPushButton*> buttons__;
+    QVector<QString> notes__;
 
 public:
-    explicit KeyboardWidget(QWidget *parent = 0);
-    virtual ~KeyboardWidget();
-    /*void showNoteName();*/
-    /*void hideNoteName();*/
-
-signals:
+    KeyboardWidget(QWidget *parent = 0);
+    ~KeyboardWidget();
 
 public slots:
+    void showNotes(bool show);
+    void pushKey(int key);
 };
 
-#endif // KEYBOARDWIDGET_H
+#endif // KEYBOARDWIDGET_HPP

@@ -1,0 +1,6 @@
+<RCC>
+<qresource>
+    <file>styles/piano/key.png</file>
+    <file>styles/metallophone/key.png</file>
+</qresource>
+</RCC>

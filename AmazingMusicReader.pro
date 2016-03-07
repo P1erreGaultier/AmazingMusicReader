@@ -16,3 +16,6 @@ SOURCES += main.cpp\
         keyboardwidget.cpp
 
 HEADERS  += keyboardwidget.hpp
+
+RESOURCES += \
+    styles.qrc

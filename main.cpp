@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 
     KeyboardWidget keyboard;
     keyboard.show();
+    keyboard.showNotes(true);
 
     return a.exec();
 }

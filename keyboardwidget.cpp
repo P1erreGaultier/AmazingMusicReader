@@ -8,13 +8,13 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 
     setLayout(&layout__);
 
-    notes__.append("do");
-    notes__.append("re");
-    notes__.append("mi");
-    notes__.append("fa");
-    notes__.append("sol");
-    notes__.append("la");
-    notes__.append("si");
+    notes__.append("DO");
+    notes__.append("RÉ");
+    notes__.append("MI");
+    notes__.append("FA");
+    notes__.append("SOL");
+    notes__.append("LA");
+    notes__.append("SI");
 
     QPushButton * button;
     for(int i = 0; i < 15; i++) {

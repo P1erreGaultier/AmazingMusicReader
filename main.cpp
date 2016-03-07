@@ -1,9 +1,11 @@
-#include <QCoreApplication>
+#include <QApplication>
+#include "partitionwidget.hpp"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    QApplication app(argc, argv);
+    PartitionWidget window;
+    window.show();
+    return app.exec();
 }
 

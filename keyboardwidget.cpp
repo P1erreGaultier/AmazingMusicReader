@@ -26,6 +26,12 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     for(int i = 0; i < 15; i++) {
         button = new QPushButton(this);
         button->setFocusPolicy(Qt::NoFocus);
+        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        button->setFlat(true);
+        button->setAutoFillBackground(true);
+        button->setIcon(QIcon(":/piano/skin/key.png"));
+        //button->setIconSize();
+
         buttons__.append(button);
         layout__.addWidget(button);
 

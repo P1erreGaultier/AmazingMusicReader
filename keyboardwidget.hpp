@@ -16,6 +16,7 @@ private:
     QHBoxLayout layout__;
     QVector<QPushButton*> buttons__;
     QVector<QString> notes__;
+    QVector<QSound*> sounds__;
 
 public:
     KeyboardWidget(QWidget *parent = 0);

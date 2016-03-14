@@ -27,10 +27,12 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
         button = new QPushButton(this);
         button->setFocusPolicy(Qt::NoFocus);
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        button->setFlat(true);
-        button->setAutoFillBackground(true);
-        button->setIcon(QIcon(":/piano/skin/key.png"));
+        //button->setFlat(true);
+        //button->setAutoFillBackground(true);
+        //button->setIcon(QIcon(":/piano/skin/key.png"));
         //button->setIconSize();
+
+        sounds__.append(new QSound(":/styles/piano/audio/"+QString::number(i)+".wav"));
 
         buttons__.append(button);
         layout__.addWidget(button);
@@ -44,10 +46,19 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 KeyboardWidget::~KeyboardWidget()
 {
     QPushButton * button;
-    QVectorIterator<QPushButton*> it(buttons__);
+    QSound * sound;
+    QVectorIterator<QPushButton*> buttonIt(buttons__);
+    QVectorIterator<QSound*> soundIt(sounds__);
 
-    while(it.hasNext()) {
-        button = it.next();
+    delete signalMapper__;
+
+    while(soundIt.hasNext()) {
+        sound = soundIt.next();
+        delete sound;
+    }
+
+    while(buttonIt.hasNext()) {
+        button = buttonIt.next();
         layout__.removeWidget(button);
         delete button;
     }
@@ -77,5 +88,5 @@ void KeyboardWidget::showNotes(bool show)
 void KeyboardWidget::pushKey(int key)
 {
     qDebug() << key << "pushed";
-    QSound::play(":/styles/piano/audio/"+QString::number(key)+".wav");
+    sounds__[key]->play();
 }

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,13 +12,13 @@ TARGET = AmazingMusicReader
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    partitionwidget.cpp
+    partitionwidget.cpp \
     keyboardwidget.cpp
 
 HEADERS += \
-    partitionwidget.hpp
+    partitionwidget.hpp \
     keyboardwidget.hpp
 
 RESOURCES += \
-    Partoch.qrc
-
+    Partoch.qrc \
+    styles.qrc

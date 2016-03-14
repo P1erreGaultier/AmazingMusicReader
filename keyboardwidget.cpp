@@ -1,5 +1,7 @@
 #include "keyboardwidget.hpp"
 
+#include <QDebug>
+
 KeyboardWidget::KeyboardWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -16,12 +18,20 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     notes__.append("LA");
     notes__.append("SI");
 
+    signalMapper__ = new QSignalMapper(this);
+    connect(signalMapper__, SIGNAL(mapped(int)), this, SIGNAL(keyPushed(int)));
+    connect(signalMapper__, SIGNAL(mapped(int)), this, SLOT(pushKey(int)));
+
     QPushButton * button;
     for(int i = 0; i < 15; i++) {
         button = new QPushButton(this);
         button->setFocusPolicy(Qt::NoFocus);
         buttons__.append(button);
         layout__.addWidget(button);
+
+        signalMapper__->setMapping(button, i);
+        connect(button, SIGNAL(clicked()), signalMapper__, SLOT(map()));
+        signalMapper__->setMapping(button, i);
     }
 }
 
@@ -60,6 +70,6 @@ void KeyboardWidget::showNotes(bool show)
 
 void KeyboardWidget::pushKey(int key)
 {
-    // highlight and play sound
-    ;
+    qDebug() << key << "pushed";
+    QSound::play(":/styles/piano/audio/"+QString::number(key)+".wav");
 }

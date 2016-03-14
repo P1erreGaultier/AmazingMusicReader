@@ -3,6 +3,8 @@
 
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QSignalMapper>
+#include <QSound>
 #include <QWidget>
 
 class KeyboardWidget : public QWidget
@@ -10,6 +12,7 @@ class KeyboardWidget : public QWidget
     Q_OBJECT
 
 private:
+    QSignalMapper * signalMapper__;
     QHBoxLayout layout__;
     QVector<QPushButton*> buttons__;
     QVector<QString> notes__;
@@ -17,6 +20,9 @@ private:
 public:
     KeyboardWidget(QWidget *parent = 0);
     ~KeyboardWidget();
+
+signals:
+    void keyPushed(int key);
 
 public slots:
     void showNotes(bool show);

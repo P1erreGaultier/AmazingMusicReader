@@ -10,13 +10,13 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 
     setLayout(&layout__);
 
-    notes__.append(QString("DO"));
-    notes__.append(QString("RÉ"));
-    notes__.append(QString("MI"));
-    notes__.append(QString("FA"));
-    notes__.append(QString("SOL"));
-    notes__.append(QString("LA"));
-    notes__.append(QString("SI"));
+    notes__.append(QString::fromUtf8("DO"));
+    notes__.append(QString::fromUtf8("RÉ"));
+    notes__.append(QString::fromUtf8("MI"));
+    notes__.append(QString::fromUtf8("FA"));
+    notes__.append(QString::fromUtf8("SOL"));
+    notes__.append(QString::fromUtf8("LA"));
+    notes__.append(QString::fromUtf8("SI"));
 
     signalMapper__ = new QSignalMapper(this);
     connect(signalMapper__, SIGNAL(mapped(int)), this, SIGNAL(keyPushed(int)));

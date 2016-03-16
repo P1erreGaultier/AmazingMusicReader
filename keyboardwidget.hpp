@@ -28,6 +28,7 @@ signals:
 public slots:
     void showNotes(bool show);
     void pushKey(int key);
+    void setStyle(QString style);
 };
 
 #endif // KEYBOARDWIDGET_HPP

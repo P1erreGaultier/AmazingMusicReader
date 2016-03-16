@@ -10,13 +10,13 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 
     setLayout(&layout__);
 
-    notes__.append("DO");
-    notes__.append("RÉ");
-    notes__.append("MI");
-    notes__.append("FA");
-    notes__.append("SOL");
-    notes__.append("LA");
-    notes__.append("SI");
+    notes__.append(QString("DO"));
+    notes__.append(QString("RÉ"));
+    notes__.append(QString("MI"));
+    notes__.append(QString("FA"));
+    notes__.append(QString("SOL"));
+    notes__.append(QString("LA"));
+    notes__.append(QString("SI"));
 
     signalMapper__ = new QSignalMapper(this);
     connect(signalMapper__, SIGNAL(mapped(int)), this, SIGNAL(keyPushed(int)));
@@ -32,8 +32,6 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
         //button->setIcon(QIcon(":/piano/skin/key.png"));
         //button->setIconSize();
 
-        sounds__.append(new QSound(":/styles/piano/audio/"+QString::number(i)+".wav"));
-
         buttons__.append(button);
         layout__.addWidget(button);
 
@@ -41,6 +39,8 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
         connect(button, SIGNAL(clicked()), signalMapper__, SLOT(map()));
         signalMapper__->setMapping(button, i);
     }
+
+    setStyle("piano");
 }
 
 KeyboardWidget::~KeyboardWidget()
@@ -88,5 +88,20 @@ void KeyboardWidget::showNotes(bool show)
 void KeyboardWidget::pushKey(int key)
 {
     qDebug() << key << "pushed";
-    sounds__[key]->play();
+    sounds__.at(key)->play();
+}
+
+void KeyboardWidget::setStyle(QString style)
+{
+    QSound * sound;
+    QVectorIterator<QSound*> soundIt(sounds__);
+
+    while(soundIt.hasNext()) {
+        sound = soundIt.next();
+        delete sound;
+    }
+
+    for(int i = 0; i < 15; i++) {
+        sounds__.append(new QSound(QString(":/styles/")+style+QString("/audio/")+QString::number(i)+QString(".wav")));
+    }
 }

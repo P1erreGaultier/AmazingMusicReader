@@ -1,5 +1,10 @@
 #include "keyboardwidget.hpp"
 
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QSignalMapper>
+#include <QWidget>
+#include <QSound>
 #include <QDebug>
 
 KeyboardWidget::KeyboardWidget(QWidget *parent)
@@ -57,7 +62,7 @@ KeyboardWidget::~KeyboardWidget()
     }
 }
 
-void KeyboardWidget::showNotes(bool show)
+void KeyboardWidget::showNotes(int state)
 {
     QPushButton * button;
     QString note;
@@ -70,7 +75,7 @@ void KeyboardWidget::showNotes(bool show)
         }
         button = buttonsIterator.next();
         note = notesIterator.next();
-        if(show) {
+        if(state) {
             button->setText(note);
         } else {
             button->setText("");

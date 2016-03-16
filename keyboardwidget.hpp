@@ -4,7 +4,6 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QSignalMapper>
-#include <QSound>
 #include <QWidget>
 
 class KeyboardWidget : public QWidget
@@ -26,7 +25,7 @@ signals:
     void keyPushed(int key);
 
 public slots:
-    void showNotes(bool show);
+    void showNotes(int state);
     void pushKey(int key);
     void setStyle(QString style);
 };

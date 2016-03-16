@@ -3,16 +3,18 @@
 
 #include <QWidget>
 #include <QPainter>
-#include <QPen>
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
-#include <QDebug>
+
 class PartitionWidget : public QWidget
 {
+    Q_OBJECT
+
+    public:
+        PartitionWidget(QWidget *parent = 0);
+        ~PartitionWidget();
 
     protected:
         void paintEvent(QPaintEvent *event);
 
 };
+
 #endif // PARTITIONWIDGET_HPP

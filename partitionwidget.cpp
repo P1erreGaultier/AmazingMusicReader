@@ -1,11 +1,31 @@
 #include "partitionwidget.hpp"
 
+#include <QPainter>
+#include <QPen>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
+#include <QDebug>
+#include <QWidget>
+
+PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
+{
+    this->setMinimumSize(800, 200);
+}
+
+PartitionWidget::~PartitionWidget()
+{
+    ;
+}
 
 void PartitionWidget::paintEvent(QPaintEvent *event)
     {
         QPainter painter(this);
         QPoint p;
         QVector<QPoint> V(12);
+
+        QString clef("𝄚𝄞𝄚");
+        QString quarter_note("♩");
 
         //Creation de la grille de la partition
         painter.setPen(QPen(Qt::black, 5, Qt::SolidLine, Qt::RoundCap));
@@ -21,6 +41,15 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
         painter.drawLine(450, 50,450,150);
         painter.drawLine(850, 50,850,150);
         painter.drawLine(1250,50,1250,150);
+
+
+        QFont font = painter.font();
+        font.setPointSize(font.pointSize() * 8);
+        painter.setFont(font);
+        painter.drawText(50, 150, clef);
+
+        //font.setPointSize(font.pointSize() / 2);
+        //painter.setFont(font);
 
 
 
@@ -42,8 +71,9 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
          file.close();
 
         //Tracé des points
-        painter.setPen(QPen(Qt::blue, 12, Qt::SolidLine, Qt::RoundCap));
+        //painter.setPen(QPen(Qt::blue, 12, Qt::SolidLine, Qt::RoundCap));
         for (int i = 0; i < V.size(); ++i) {
-            painter.drawPoint(V.at(i));
+            //painter.drawPoint(V.at(i));
+            painter.drawText(V.at(i), quarter_note);
         }
     }

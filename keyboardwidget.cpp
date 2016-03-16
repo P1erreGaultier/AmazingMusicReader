@@ -13,15 +13,13 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     layout__.setSpacing(0);
     layout__.setMargin(0);
 
-    setLayout(&layout__);
-
-    notes__.append(QString::fromUtf8("DO"));
-    notes__.append(QString::fromUtf8("RÉ"));
-    notes__.append(QString::fromUtf8("MI"));
-    notes__.append(QString::fromUtf8("FA"));
-    notes__.append(QString::fromUtf8("SOL"));
-    notes__.append(QString::fromUtf8("LA"));
-    notes__.append(QString::fromUtf8("SI"));
+    notes__.append(QString("DO"));
+    notes__.append(QString("RÉ"));
+    notes__.append(QString("MI"));
+    notes__.append(QString("FA"));
+    notes__.append(QString("SOL"));
+    notes__.append(QString("LA"));
+    notes__.append(QString("SI"));
 
     signalMapper__ = new QSignalMapper(this);
     connect(signalMapper__, SIGNAL(mapped(int)), this, SIGNAL(keyPushed(int)));
@@ -45,7 +43,9 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
         signalMapper__->setMapping(button, i);
     }
 
-    setStyle("piano");
+    setStyle(QString("piano"));
+
+    setLayout(&layout__);
 }
 
 KeyboardWidget::~KeyboardWidget()
@@ -78,7 +78,7 @@ void KeyboardWidget::showNotes(int state)
         if(state) {
             button->setText(note);
         } else {
-            button->setText("");
+            button->setText(QString());
         }
     }
 }

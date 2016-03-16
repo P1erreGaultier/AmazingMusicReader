@@ -18,7 +18,7 @@ private:
     QVector<QString> notes__;
 
 public:
-    KeyboardWidget(QWidget *parent = 0);
+    explicit KeyboardWidget(QWidget *parent = 0);
     ~KeyboardWidget();
 
 signals:

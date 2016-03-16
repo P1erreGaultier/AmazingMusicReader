@@ -1,35 +1,24 @@
-#include "keyboardwidget.hpp"
-#include "partitionwidget.hpp"
+#include "hometabwidget.hpp"
+#include "playtabwidget.hpp"
+#include "scoretabwidget.hpp"
 
-#include <QObject>
 #include <QApplication>
-#include <QCheckBox>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
+#include <QObject>
+#include <QTabWidget>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QWidget window;
-    KeyboardWidget keyboardWidget(&window);
-    PartitionWidget partitionWidget(&window);
-    QCheckBox showNotes("Afficher le nom des notes", &window);
-    QVBoxLayout layout;
-    QHBoxLayout optLayout;
+    QTabWidget tabWidget;
+    HomeTabWidget homeWidget;
+    PlayTabWidget playWidget;
+    ScoreTabWidget scoreWidget;
 
-    QObject::connect(&showNotes , SIGNAL(stateChanged(int)),&keyboardWidget,SLOT(showNotes(int)));
+    tabWidget.addTab(&homeWidget, QString("Accueil"));
+    tabWidget.addTab(&playWidget, QString("Jouer"));
+    tabWidget.addTab(&scoreWidget, QString("Progression"));
 
-    optLayout.addWidget(&showNotes);
-
-    layout.addWidget(&partitionWidget);
-    layout.addWidget(&keyboardWidget);
-    layout.addLayout(&optLayout);
-
-    window.setLayout(&layout);
-
-    window.show();
-    partitionWidget.show();
-    keyboardWidget.show();
+    tabWidget.show();
 
     return app.exec();
 }

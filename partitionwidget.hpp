@@ -9,7 +9,7 @@ class PartitionWidget : public QWidget
     Q_OBJECT
 
     public:
-        PartitionWidget(QWidget *parent = 0);
+        explicit PartitionWidget(QWidget *parent = 0);
         ~PartitionWidget();
 
     protected:

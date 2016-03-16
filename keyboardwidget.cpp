@@ -46,16 +46,9 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 KeyboardWidget::~KeyboardWidget()
 {
     QPushButton * button;
-    QSound * sound;
     QVectorIterator<QPushButton*> buttonIt(buttons__);
-    QVectorIterator<QSound*> soundIt(sounds__);
 
     delete signalMapper__;
-
-    while(soundIt.hasNext()) {
-        sound = soundIt.next();
-        delete sound;
-    }
 
     while(buttonIt.hasNext()) {
         button = buttonIt.next();
@@ -88,20 +81,10 @@ void KeyboardWidget::showNotes(bool show)
 void KeyboardWidget::pushKey(int key)
 {
     qDebug() << key << "pushed";
-    sounds__.at(key)->play();
+    QSound::play(QString(":/styles/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
 }
 
 void KeyboardWidget::setStyle(QString style)
 {
-    QSound * sound;
-    QVectorIterator<QSound*> soundIt(sounds__);
-
-    while(soundIt.hasNext()) {
-        sound = soundIt.next();
-        delete sound;
-    }
-
-    for(int i = 0; i < 15; i++) {
-        sounds__.append(new QSound(QString(":/styles/")+style+QString("/audio/")+QString::number(i)+QString(".wav")));
-    }
+    style__ = style;
 }

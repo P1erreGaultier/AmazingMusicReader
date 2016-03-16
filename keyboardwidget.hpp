@@ -12,11 +12,11 @@ class KeyboardWidget : public QWidget
     Q_OBJECT
 
 private:
+    QString style__;
     QSignalMapper * signalMapper__;
     QHBoxLayout layout__;
     QVector<QPushButton*> buttons__;
     QVector<QString> notes__;
-    QVector<QSound*> sounds__;
 
 public:
     KeyboardWidget(QWidget *parent = 0);

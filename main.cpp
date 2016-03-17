@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QObject>
 #include <QTabWidget>
+#include <QPalette>
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,8 @@ int main(int argc, char *argv[])
     tabWidget.addTab(&homeWidget, QString("Accueil"));
     tabWidget.addTab(&playWidget, QString("Jouer"));
     tabWidget.addTab(&scoreWidget, QString("Progression"));
-
+    tabWidget.setMinimumHeight(400);
+    tabWidget.setMinimumWidth(1600);
     tabWidget.show();
 
     return app.exec();

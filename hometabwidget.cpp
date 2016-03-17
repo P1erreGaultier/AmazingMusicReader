@@ -1,6 +1,6 @@
 #include "hometabwidget.hpp"
 
-#include <QPixmap>
+
 
 HomeTabWidget::HomeTabWidget(QWidget *parent) : QWidget(parent)
 {
@@ -8,10 +8,21 @@ HomeTabWidget::HomeTabWidget(QWidget *parent) : QWidget(parent)
     labelImage__.setPixmap(QPixmap(QString(":/image/icon_386x216.png")));
     labelText__.setParent(this);
     labelText__.setWordWrap(true);
-    labelText__.setText(QString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus, libero a aliquam tempor, risus magna volutpat eros, non laoreet urna risus quis leo. Aliquam rutrum erat at condimentum imperdiet. Aliquam at orci tempus, aliquam arcu eget, feugiat nibh. Pellentesque sed tristique velit. Suspendisse pharetra sem condimentum pretium tincidunt. Sed porta eros id diam scelerisque, vitae tincidunt velit cursus. Vivamus finibus, sapien tempus finibus pretium, nisi elit fringilla enim, eget dignissim eros massa varius purus. Sed et turpis ornare, molestie orci commodo, volutpat nisl. Maecenas ut erat sit amet mi laoreet congue. Aenean tincidunt mi mi, non efficitur erat varius rhoncus. Nulla fringilla nisl quis nisl lacinia tincidunt."));
+    labelText__.setText(QString::fromUtf8("Bienvenue dans AmazingMusicTrainer, une application pour apprendre les bases du solfège en s'amusant.\nCliquez sur le bouton \"Jouer\" pour lancer une partie, ou sur le bouton \"Performance\" pour voir vos progrès."));
+    labelText__.setFont(QFont("Calibri", 10, QFont::Bold));
+    btnJouer = new QPushButton("Jouer");
+    btnPerformance = new QPushButton("Progression");
 
+    labelImage__.setAlignment(Qt::AlignHCenter);
     layout__.addWidget(&labelImage__);
     layout__.addWidget(&labelText__);
-
+    layout__.addWidget(btnJouer);
+    layout__.addWidget(btnPerformance);
+    layout__.setAlignment(Qt::AlignHCenter);
     this->setLayout(&layout__);
+
+
+
+
+
 }

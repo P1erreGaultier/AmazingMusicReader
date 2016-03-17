@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QVector>
 
 class PartitionWidget : public QWidget
 {
@@ -16,11 +17,12 @@ class PartitionWidget : public QWidget
         void paintEvent(QPaintEvent *event);
 
     private:
-        QString singleBarline__;
-        QString lineStaff5__;
-        QString gClef__;
-        QString quarterNote__;
-        QString noteheadBlack__;
+        QVector<int> notes__;
+        QString uSingleBarline__;
+        QString uLineStaff5__;
+        QString uGClef__;
+        QString uQuarterNote__;
+        QString uNoteheadBlack__;
 };
 
 #endif // PARTITIONWIDGET_HPP

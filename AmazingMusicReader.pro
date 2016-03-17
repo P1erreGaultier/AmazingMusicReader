@@ -13,14 +13,18 @@ SOURCES += main.cpp \
     keyboardwidget.cpp \
     hometabwidget.cpp \
     playtabwidget.cpp \
-    scoretabwidget.cpp
+    scoretabwidget.cpp \
+    keyboardoptwidget.cpp \
+    partitionoptwidget.cpp
 
 HEADERS += \
     partitionwidget.hpp \
     keyboardwidget.hpp \
     hometabwidget.hpp \
     playtabwidget.hpp \
-    scoretabwidget.hpp
+    scoretabwidget.hpp \
+    keyboardoptwidget.hpp \
+    partitionoptwidget.hpp
 
 RESOURCES += \
     image.qrc \

@@ -10,11 +10,11 @@
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
-    singleBarline__ = QString("𝄀");
-    lineStaff5__ = QString("𝄚");
-    gClef__ = QString("𝄞");
-    quarterNote__ = QString("𝅘𝅥");
-    noteheadBlack__ = QString("𝅘");
+    uSingleBarline__ = QString("𝄀");
+    uLineStaff5__ = QString("𝄚");
+    uGClef__ = QString("𝄞");
+    uQuarterNote__ = QString("𝅘𝅥");
+    uNoteheadBlack__ = QString("𝅘");
 
     this->setMinimumSize(800, 200);
 }
@@ -26,12 +26,9 @@ PartitionWidget::~PartitionWidget()
 
 void PartitionWidget::paintEvent(QPaintEvent *event)
     {
-        QPainter painter(this);
+        /*QPainter painter(this);
         QPoint p;
-        QVector<QPoint> V(12);
-
-        QString clef = QString::fromUtf8("𝄞");
-        QString quarter_note = QString::fromUtf8("♩");
+        QVector<QPoint> V;
 
         painter.setPen(QPen(Qt::black, 5, Qt::SolidLine, Qt::RoundCap));
         QFont font = painter.font();
@@ -74,7 +71,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
         //vertical
         for (int i = 0; i <= V.size()/4; ++i) {
             painter.drawLine(i*400+50, 50,i*400+50,150);
-        }
+        }*/
 
     }
 

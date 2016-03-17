@@ -2,7 +2,9 @@
 #define PLAYTABWIDGET_H
 
 #include "keyboardwidget.hpp"
+#include "keyboardoptwidget.hpp"
 #include "partitionwidget.hpp"
+#include "partitionoptwidget.hpp"
 
 #include <QCheckBox>
 #include <QObject>
@@ -19,9 +21,9 @@ public:
 private:
     QGridLayout layout__;
     KeyboardWidget keyboard__;
+    KeyboardOptWidget keyboardOpt__;
     PartitionWidget partition__;
-    QCheckBox keyboardOptNotes__;
-    QPushButton start__;
+    PartitionOptWidget partitionOpt__;
 
 signals:
 

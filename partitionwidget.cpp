@@ -10,6 +10,12 @@
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
+    singleBarline__ = QString("𝄀");
+    lineStaff5__ = QString("𝄚");
+    gClef__ = QString("𝄞");
+    quarterNote__ = QString("𝅘𝅥");
+    noteheadBlack__ = QString("𝅘");
+
     this->setMinimumSize(800, 200);
 }
 

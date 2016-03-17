@@ -15,6 +15,12 @@ class PartitionWidget : public QWidget
     protected:
         void paintEvent(QPaintEvent *event);
 
+    private:
+        QString singleBarline__;
+        QString lineStaff5__;
+        QString gClef__;
+        QString quarterNote__;
+        QString noteheadBlack__;
 };
 
 #endif // PARTITIONWIDGET_HPP

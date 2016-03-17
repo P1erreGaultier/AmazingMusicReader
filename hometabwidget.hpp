@@ -13,7 +13,8 @@ public:
     explicit HomeTabWidget(QWidget *parent = 0);
 
 private:
-    QLabel label__;
+    QLabel labelImage__;
+    QLabel labelText__;
     QVBoxLayout layout__;
 
 signals:

@@ -1,0 +1,20 @@
+<RCC>
+<qresource>
+    <file>keyboard/piano/skin/key.png</file>
+    <file>keyboard/piano/audio/0.wav</file>
+    <file>keyboard/piano/audio/1.wav</file>
+    <file>keyboard/piano/audio/2.wav</file>
+    <file>keyboard/piano/audio/3.wav</file>
+    <file>keyboard/piano/audio/4.wav</file>
+    <file>keyboard/piano/audio/5.wav</file>
+    <file>keyboard/piano/audio/6.wav</file>
+    <file>keyboard/piano/audio/7.wav</file>
+    <file>keyboard/piano/audio/8.wav</file>
+    <file>keyboard/piano/audio/9.wav</file>
+    <file>keyboard/piano/audio/10.wav</file>
+    <file>keyboard/piano/audio/11.wav</file>
+    <file>keyboard/piano/audio/12.wav</file>
+    <file>keyboard/piano/audio/13.wav</file>
+    <file>keyboard/piano/audio/14.wav</file>
+</qresource>
+</RCC>

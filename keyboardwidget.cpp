@@ -86,7 +86,7 @@ void KeyboardWidget::showNotes(int state)
 void KeyboardWidget::pushKey(int key)
 {
     qDebug() << key << "pushed";
-    QSound::play(QString(":/styles/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
+    QSound::play(QString(":/keyboard/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
 }
 
 void KeyboardWidget::setStyle(QString style)

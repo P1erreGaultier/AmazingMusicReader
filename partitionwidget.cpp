@@ -34,7 +34,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
         painter.drawText(-10, 130, clef);
 
 
-        QFile file(":/partoch1.txt");
+        QFile file(":/partition/easy/partition1.txt");
         if(!file.open(QIODevice::ReadOnly)) {
             QMessageBox::information(0, "error", file.errorString());
         }

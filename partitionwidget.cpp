@@ -7,6 +7,8 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QWidget>
+#include <QTextItem>
+#include <QFontMetrics>
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
@@ -17,6 +19,7 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     uNoteheadBlack__ = QString("𝅘");
 
     this->setMinimumSize(800, 200);
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 PartitionWidget::~PartitionWidget()
@@ -26,8 +29,20 @@ PartitionWidget::~PartitionWidget()
 
 void PartitionWidget::paintEvent(QPaintEvent *event)
     {
-        /*QPainter painter(this);
-        QPoint p;
+        QPainter painter(this);
+
+        QFont font = painter.font();
+        font.setPointSize(font.pointSize() * 12);
+        painter.setFont(font);
+
+        QFontMetrics metrics(font);
+        qDebug() << metrics.height();
+        qDebug() << metrics.width("");
+
+        painter.drawText(0,this->height()/2,uLineStaff5__);
+        painter.drawText(metrics.width(uLineStaff5__),this->height()/2,uLineStaff5__);
+
+        /*QPoint p;
         QVector<QPoint> V;
 
         painter.setPen(QPen(Qt::black, 5, Qt::SolidLine, Qt::RoundCap));

@@ -20,9 +20,16 @@ private:
     QComboBox partition__;
 
 signals:
+    void currentPartitionChanged(const QString &partition);
+    void playClicked();
+
+private slots:
+    void difficultyChanged(const QString & text);
+    void partitionChanged(const QString & text);
+    void start();
 
 public slots:
-    void currentIndexChanged(const QString & text);
+    void stop();
 };
 
 #endif // PARTITIONOPTWIDGET_H

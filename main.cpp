@@ -18,8 +18,7 @@ int main(int argc, char *argv[])
     tabWidget.addTab(&homeWidget, QString("Accueil"));
     tabWidget.addTab(&playWidget, QString("Jouer"));
     tabWidget.addTab(&scoreWidget, QString("Progression"));
-    tabWidget.setMinimumHeight(400);
-    tabWidget.setMinimumWidth(1600);
+    tabWidget.resize(800, 600);
     tabWidget.show();
 
     return app.exec();

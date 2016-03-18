@@ -17,6 +17,7 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
     }
 
     connect(&difficulty__, SIGNAL(currentTextChanged(const QString &)), this, SLOT(difficultyChanged(const QString &)));
+    connect(&partition__, SIGNAL(currentTextChanged(const QString &)), this, SLOT(partitionChanged(QString)));
     connect(&play__, SIGNAL(clicked()), this, SLOT(start()));
 
     layout__.addWidget(&difficulty__);

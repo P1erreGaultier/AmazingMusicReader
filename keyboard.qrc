@@ -1,4 +1,4 @@
-<RCC>
+<!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>keyboard/piano/skin/key.png</file>
     <file>keyboard/piano/audio/0.wav</file>

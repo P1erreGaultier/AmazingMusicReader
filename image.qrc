@@ -1,4 +1,4 @@
-<RCC>
+<!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>image/icon_32x31.png</file>
     <file>image/icon_386x216.png</file>

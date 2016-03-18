@@ -1,7 +1,8 @@
-<RCC>
+<!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>partition/easy/partition1.txt</file>
     <file>partition/medium/partition1.txt</file>
     <file>partition/hard/partition1.txt</file>
+    <file>partition/hard/partition2.txt</file>
 </qresource>
 </RCC>

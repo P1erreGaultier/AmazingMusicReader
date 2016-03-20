@@ -40,10 +40,13 @@ private:
     QString uGClef__;
     QString uQuarterNote__;
     QString uNoteheadBlack__;
+    QString uBlackStar__;
+    QString uWhiteStar__;
     bool playing__;
     bool playingGame__;
+    QString playerName__;
 
-    void drawQuarterNote__(QPainter & painter, int position, int note);
+    void drawQuarterNote__(QPainter & painter, int position, int note, const QColor & color, bool noteName);
     void drawBarline__(QPainter & painter, int position);
     void drawLinestaff5__(QPainter & painter, int position);
     void drawGClef__(QPainter & painter, int position);

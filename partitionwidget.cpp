@@ -1,5 +1,6 @@
 #include "partitionwidget.hpp"
 
+#include <QDateTime>
 #include <QPainter>
 #include <QPen>
 #include <QFile>
@@ -10,6 +11,7 @@
 #include <QTextItem>
 #include <QThread>
 #include <QFontMetrics>
+#include <QInputDialog>
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
@@ -23,6 +25,8 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     uGClef__ = QString("𝄞");
     uQuarterNote__ = QString("𝅘𝅥");
     uNoteheadBlack__ = QString("𝅘");
+    uBlackStar__ = QString("★");
+    uWhiteStar__ = QString("☆");
 
     heightY__ = 25;
     lineWidthX__ = 3;
@@ -56,7 +60,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     drawLinestaff5__(painter, 0);
     drawBarline__(painter, 0);
     if(lastNote__ >= 0) {
-        drawQuarterNote__(painter, 0, lastNote__);
+        drawQuarterNote__(painter, 0, lastNote__, Qt::blue, true);
     } else {
         //draw GClef
     }
@@ -83,7 +87,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
             drawBarline__(painter, i+1);
         }
         drawLinestaff5__(painter, i+1);
-        drawQuarterNote__(painter, i+1, partition__.at(i));
+        drawQuarterNote__(painter, i+1, partition__.at(i), Qt::black, false);
     }
     drawBarline__(painter, partition__.size()+1);
 
@@ -92,7 +96,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     pen.setColor(Qt::green);
     painter.setPen(pen);
     for(QMap<int,int>::const_iterator it = goodNotes__.constBegin(); it != goodNotes__.constEnd(); it++) {
-        drawQuarterNote__(painter, it.key()+1, it.value());
+        drawQuarterNote__(painter, it.key()+1, it.value(), Qt::green, true);
     }
 
     painter.setBrush(QBrush(Qt::red));
@@ -100,11 +104,11 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     pen.setColor(Qt::red);
     painter.setPen(pen);
     for(QMap<int,int>::const_iterator it = badNotes__.constBegin(); it != badNotes__.constEnd(); it++) {
-        drawQuarterNote__(painter, it.key()+1, it.value());
+        drawQuarterNote__(painter, it.key()+1, it.value(), Qt::red, true);
     }
 }
 
-void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note) {
+void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note, const QColor & color, bool noteName) {
     painter.drawEllipse(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2), sizeX__/2, sizeY__/2);
     painter.drawLine(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2,sizeY__*(note+noteStartY__-3)/2));
     if(!(note%2)) {
@@ -195,10 +199,33 @@ void PartitionWidget::keyPushed(int key) {
                currentIndex__++;
            }
            if(currentIndex__ == partition__.size() && playingGame__) {
-               QMessageBox messageBox;
-               messageBox.setText(QString("Votre score: "+QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())));
-               messageBox.exec();
                emit gameOver();
+
+               QString score = uBlackStar__.repeated((int)(goodNotes__.size()/partition__.size()*5.0+0.5));
+               score.append(uWhiteStar__.repeated((int)(5.0-goodNotes__.size()/partition__.size()*5.0)));
+
+               if(playerName__.isEmpty()) {
+                   playerName__ = QInputDialog::getText(this, QString("Title"), QString("label")+score, QLineEdit::Normal, QString());
+               } else {
+                   QMessageBox messageBox;
+                   messageBox.setText(QString("Votre score: ")+score/*QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())*/);
+                   messageBox.exec();
+               }
+
+               if(!playerName__.isEmpty()) {
+                   QString buff;
+                   buff.append(playerName__).append(QString(";"));
+                   buff.append(QDateTime::currentDateTime().toString()).append(QString(";"));
+                   buff.append(QString::number(goodNotes__.size())).append(QString(";"));
+                   buff.append(QString::number(partition__.size())).append(QString(";"));
+                   buff.append(QString("\n"));
+
+                   QFile scoreFile(QString("score.csv"));
+                   if(scoreFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append)) {
+                       QTextStream scoreStream(&scoreFile);
+                       scoreStream << buff;
+                   }
+               }
            }
        }
 

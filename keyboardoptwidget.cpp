@@ -4,17 +4,24 @@
 
 KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
 {
-    showNotes__.setParent(this);
-    selectStyle__.setParent(this);
+    notesCheckBox__.setParent(this);
+    notesCheckBox__.setText(QString("Afficher les notes"));
+    styleComboBox__.setParent(this);
 
-    layout__.addWidget(&showNotes__);
-    layout__.addWidget(&selectStyle__);
+    connect(&notesCheckBox__, SIGNAL(stateChanged(int)), this, SLOT(showNotes__(int)));
+
+    layout__.addWidget(&notesCheckBox__);
+    layout__.addWidget(&styleComboBox__);
 
     QDir dir(":/keyboard");
     QStringList dirList = dir.entryList();
     for(int i=0; i<dirList.size(); i++) {
-        selectStyle__.addItem(dirList.at(i));
+        styleComboBox__.addItem(dirList.at(i));
     }
 
     setLayout(&layout__);
+}
+
+void KeyboardOptWidget::showNotes__(int state) {
+    emit showNotes(state);
 }

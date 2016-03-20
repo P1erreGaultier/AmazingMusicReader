@@ -15,12 +15,14 @@ public:
 
 private:
     QVBoxLayout layout__;
-    QCheckBox showNotes__;
-    QComboBox selectStyle__;
+    QCheckBox notesCheckBox__;
+    QComboBox styleComboBox__;
 
 signals:
+    void showNotes(int state);
 
-public slots:
+private slots:
+    void showNotes__(int state);
 };
 
 #endif // KEYBOARDOPTWIDGET_H

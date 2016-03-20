@@ -13,6 +13,10 @@
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
+    timer__.setParent(this);
+
+    connect(&timer__, SIGNAL(timeout()), this, SLOT(playDemo__()));
+
     uSingleBarline__ = QString("𝄀");
     uLineStaff1__ = QString("𝄖");
     uLineStaff5__ = QString("𝄚");
@@ -24,6 +28,8 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     lineWidthX__ = 3;
     lineStartY__ = 5;
     noteStartY__ = 2;
+
+    currentIndex__ = -1;
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -48,7 +54,13 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
 
     drawLinestaff5__(painter, 0);
     drawBarline__(painter, 0);
-    // add GKey
+    if(lastNote__ >= 0) {
+        drawQuarterNote__(painter, 0, lastNote__);
+    } else {
+        //draw GClef
+    }
+
+    qDebug() << "refresh";
 
     /*QFont font = painter.font();
     font.setPointSize(font.pointSize() * 6);
@@ -124,6 +136,9 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
 void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note) {
     painter.drawEllipse(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2), sizeX__/2, sizeY__/2);
     painter.drawLine(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2,sizeY__*(note+noteStartY__-3)/2));
+    if(!(note%2)) {
+        painter.drawLine(QPoint(position*sizeX__*lineWidthX__, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2));
+    }
 }
 
 void PartitionWidget::drawBarline__(QPainter & painter, int position) {
@@ -161,18 +176,54 @@ void PartitionWidget::partitionChanged(const QString &partition) {
 }
 
 void PartitionWidget::playDemo() {
-    for(int i=0; i<partition__.size(); i++) {
-        keyPushed(partition__.at(i));
-        emit pushKey(partition__.at(i));
-        QThread::msleep(500);
+    goodNotes__.clear();
+    badNotes__.clear();
+    lastNote__ = -1;
+    currentIndex__ = 0;
+    playing__ = true;
+
+    update();
+
+    timer__.start(500);
+}
+
+void PartitionWidget::playDemo__() {
+    if(partition__.size() == (goodNotes__.size()+badNotes__.size())) {
+        timer__.stop();
+        emit demoOver();
+    } else {
+        int key = partition__.at(goodNotes__.size()+badNotes__.size());
+        keyPushed(key);
+        emit pushKey(key);
     }
-    emit demoOver();
 }
 
 void PartitionWidget::playGame() {
-    ;
+    goodNotes__.clear();
+    badNotes__.clear();
+    lastNote__ = -1;
+    currentIndex__ = 0;
+    playing__ = true;
+
+    update();
 }
 
 void PartitionWidget::keyPushed(int key) {
-    ;
+    lastNote__ = key;
+
+    if(playing__) {
+        if(currentIndex__ < partition__.size()) {
+            if(partition__.at(currentIndex__) == key) {
+                goodNotes__[currentIndex__] = key;
+            } else {
+                badNotes__[currentIndex__] = key;
+            }
+            currentIndex__++;
+        } else {
+            //open popup
+            emit gameOver();
+        }
+    }
+
+    update();
 }

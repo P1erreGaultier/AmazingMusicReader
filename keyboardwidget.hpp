@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QSignalMapper>
+#include <QTimer>
 #include <QWidget>
 
 class KeyboardWidget : public QWidget
@@ -11,6 +12,7 @@ class KeyboardWidget : public QWidget
     Q_OBJECT
 
 private:
+    QTimer timer__;
     QString style__;
     QSignalMapper * signalMapper__;
     QHBoxLayout layout__;

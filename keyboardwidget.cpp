@@ -10,6 +10,8 @@
 KeyboardWidget::KeyboardWidget(QWidget *parent)
     : QWidget(parent)
 {
+    timer__.setParent(this);
+
     layout__.setSpacing(0);
     layout__.setMargin(0);
 

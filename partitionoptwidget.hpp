@@ -2,10 +2,12 @@
 #define PARTITIONOPTWIDGET_H
 
 #include <QComboBox>
+#include <QLabel>
 #include <QObject>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QPainter>
 
 class PartitionOptWidget : public QWidget
 {
@@ -15,21 +17,27 @@ public:
 
 private:
     QVBoxLayout layout__;
+    QPushButton demo__;
     QPushButton play__;
     QComboBox difficulty__;
     QComboBox partition__;
+    QLabel difficultyLabel__;
+    QLabel partitionLabel__;
 
 signals:
-    void currentPartitionChanged(const QString &partition);
-    void playClicked();
+    void partitionChanged(const QString &partition);
+    void playDemo();
+    void playGame();
 
 private slots:
-    void difficultyChanged(const QString & text);
-    void partitionChanged(const QString & text);
-    void start();
+    void difficultyChanged__(const QString & text);
+    void partitionChanged__(const QString & text);
+    void playDemo__();
+    void playGame__();
 
 public slots:
-    void stop();
+    void enable();
+    void disable();
 };
 
 #endif // PARTITIONOPTWIDGET_H

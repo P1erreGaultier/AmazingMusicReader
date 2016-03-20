@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QWidget>
 #include <QTextItem>
+#include <QThread>
 #include <QFontMetrics>
 
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
@@ -19,6 +20,11 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     uQuarterNote__ = QString("𝅘𝅥");
     uNoteheadBlack__ = QString("𝅘");
 
+    heightY__ = 25;
+    lineWidthX__ = 3;
+    lineStartY__ = 5;
+    noteStartY__ = 2;
+
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
@@ -29,16 +35,30 @@ PartitionWidget::~PartitionWidget()
 
 void PartitionWidget::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
+    widthX__ = (partition__.size() + 1) * lineWidthX__ +1;
 
-    QFont font = painter.font();
+    QPainter painter(this);
+    painter.setBrush(QBrush(Qt::black));
+
+    sizeX__ = this->width() / widthX__;
+    sizeY__ = this->height() / heightY__;
+
+    sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeY__: sizeX__;
+
+
+    drawLinestaff5__(painter, 0);
+    drawBarline__(painter, 0);
+    // add GKey
+
+    /*QFont font = painter.font();
     font.setPointSize(font.pointSize() * 6);
     painter.setFont(font);
 
-    QFontMetrics metrics(font);
+    QFontMetrics metrics(font, painter.device());
     qDebug() << metrics.height();
-    qDebug() << metrics.width("");
-    qDebug() << metrics.boundingRect(uLineStaff5__);
+    qDebug() << metrics.width(uLineStaff5__);
+    qDebug() << metrics.size(0,uLineStaff5__);
+    qDebug() << metrics.size(0, uNoteheadBlack__);*/
 
     /*painter.drawText(0,this->height()/2,uLineStaff5__);
     painter.drawText(0,this->height()/2,uQuarterNote__);
@@ -47,13 +67,12 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
 
     for(int i = 0; i<partition__.size(); i++) {
         if(i%4 == 0) {
-            painter.drawText(i*metrics.width(uLineStaff5__), this->height()/2, uSingleBarline__);
+            drawBarline__(painter, i+1);
         }
-        painter.drawText(i*metrics.width(uLineStaff5__), this->height()/2, uLineStaff5__);
-
-        painter.drawText(i*metrics.width(uLineStaff5__)+metrics.height()/2, this->height()/2+i*metrics.boundingRect(uLineStaff5__).height()/12 - metrics.height(), uQuarterNote__);
+        drawLinestaff5__(painter, i+1);
+        drawQuarterNote__(painter, i+1, partition__.at(i));
     }
-    painter.drawText(partition__.size()*metrics.width(uLineStaff5__), this->height()/2, uSingleBarline__);
+    drawBarline__(painter, partition__.size()+1);
 
     /*QPoint p;
         QVector<QPoint> V;
@@ -102,7 +121,26 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
         }*/
 }
 
-void PartitionWidget::currentPartitionChanged(const QString &partition) {
+void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note) {
+    painter.drawEllipse(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2), sizeX__/2, sizeY__/2);
+    painter.drawLine(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2,sizeY__*(note+noteStartY__-3)/2));
+}
+
+void PartitionWidget::drawBarline__(QPainter & painter, int position) {
+    painter.drawLine(QPoint(position*sizeX__*lineWidthX__, lineStartY__*sizeY__), QPoint(position*sizeX__*lineWidthX__, (lineStartY__+4)*sizeY__));
+}
+
+void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
+    for(int i=0; i<5; i++) {
+        painter.drawLine(QPoint(position*sizeX__*lineWidthX__, (lineStartY__+i)*sizeY__), QPoint((position+1)*sizeX__*lineWidthX__, (lineStartY__+i)*sizeY__));
+    }
+}
+
+void PartitionWidget::drawGClef__(QPainter & painter, int position) {
+
+}
+
+void PartitionWidget::partitionChanged(const QString &partition) {
     partition__.clear();
 
     qDebug() << partition;
@@ -120,4 +158,21 @@ void PartitionWidget::currentPartitionChanged(const QString &partition) {
     qDebug() << "OK";
 
     update();
+}
+
+void PartitionWidget::playDemo() {
+    for(int i=0; i<partition__.size(); i++) {
+        keyPushed(partition__.at(i));
+        emit pushKey(partition__.at(i));
+        QThread::msleep(500);
+    }
+    emit demoOver();
+}
+
+void PartitionWidget::playGame() {
+    ;
+}
+
+void PartitionWidget::keyPushed(int key) {
+    ;
 }

@@ -8,7 +8,12 @@ PlayTabWidget::PlayTabWidget(QWidget *parent) : QWidget(parent)
     partitionOpt__.setParent(this);
 
     /*connect(&keyboardOptNotes__ , SIGNAL(stateChanged(int)),&keyboard__,SLOT(showNotes(int)));*/
-    connect(&partitionOpt__ , SIGNAL(currentPartitionChanged(const QString &)),&partition__,SLOT(currentPartitionChanged(const QString &)));
+    connect(&partitionOpt__ , SIGNAL(partitionChanged(const QString &)),&partition__,SLOT(partitionChanged(const QString &)));
+    connect(&partitionOpt__, SIGNAL(playDemo()), &partition__, SLOT(playDemo()));
+    connect(&partition__, SIGNAL(demoOver()), &partitionOpt__, SLOT(enable()));
+    connect(&partitionOpt__, SIGNAL(playGame()), &partition__, SLOT(playGame()));
+    connect(&partition__, SIGNAL(gameOver()), &partitionOpt__, SLOT(enable()));
+    connect(&partition__, SIGNAL(pushKey(int)), &keyboard__, SLOT(pushKey(int)));
 
     layout__.addWidget(&partitionOpt__, 0, 0);
     layout__.addWidget(&partition__, 0, 1);

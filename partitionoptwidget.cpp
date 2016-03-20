@@ -38,6 +38,7 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 }
 
 void PartitionOptWidget::difficultyChanged__(const QString & text) {
+    qInfo("difficulty combo box changed");
     partition__.clear();
     QDir dir(":/partition/"+text);
     QStringList dirList = dir.entryList();
@@ -47,15 +48,18 @@ void PartitionOptWidget::difficultyChanged__(const QString & text) {
 }
 
 void PartitionOptWidget::partitionChanged__(const QString & text) {
+    qInfo("partition combo box changed");
     emit partitionChanged(QString(":/partition/"+difficulty__.currentText()+"/"+text));
 }
 
 void PartitionOptWidget::playDemo__() {
+    qInfo("demo button clicked");
     disable();
     emit playDemo();
 }
 
 void PartitionOptWidget::playGame__() {
+    qInfo("play button clicked");
     disable();
     emit playGame();
 }

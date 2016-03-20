@@ -12,10 +12,10 @@ class KeyboardWidget : public QWidget
     Q_OBJECT
 
 private:
-    QTimer timer__;
     QString style__;
     QSignalMapper * signalMapper__;
     QHBoxLayout layout__;
+    QVector<QTimer*> timers__;
     QVector<QPushButton*> buttons__;
     QVector<QString> notes__;
 
@@ -25,6 +25,9 @@ public:
 
 signals:
     void keyPushed(int key);
+
+private slots:
+    void pullKey__(int key);
 
 public slots:
     void showNotes(int state);

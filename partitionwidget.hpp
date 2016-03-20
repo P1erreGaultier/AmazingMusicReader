@@ -41,6 +41,7 @@ private:
     QString uQuarterNote__;
     QString uNoteheadBlack__;
     bool playing__;
+    bool playingGame__;
 
     void drawQuarterNote__(QPainter & painter, int position, int note);
     void drawBarline__(QPainter & painter, int position);

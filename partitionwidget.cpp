@@ -30,6 +30,7 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     noteStartY__ = 2;
 
     currentIndex__ = -1;
+    lastNote__ = -1;
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -86,51 +87,21 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     }
     drawBarline__(painter, partition__.size()+1);
 
-    /*QPoint p;
-        QVector<QPoint> V;
+    painter.setBrush(QBrush(Qt::green));
+    QPen pen = painter.pen();
+    pen.setColor(Qt::green);
+    painter.setPen(pen);
+    for(QMap<int,int>::const_iterator it = goodNotes__.constBegin(); it != goodNotes__.constEnd(); it++) {
+        drawQuarterNote__(painter, it.key()+1, it.value());
+    }
 
-        painter.setPen(QPen(Qt::black, 5, Qt::SolidLine, Qt::RoundCap));
-        QFont font = painter.font();
-        font.setPointSize(font.pointSize() * 8);
-        painter.setFont(font);
-        painter.drawText(-10, 130, clef);
-
-
-        QFile file(":/partition/easy/partition1.txt");
-        if(!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, "error", file.errorString());
-        }
-
-        QTextStream in(&file);
-
-        for (int i = 0; i < V.size(); i++) {
-             QString line = in.readLine();
-             p.setX((1+i)*100-50);
-             p.setY(line.toInt()*12.5-3);
-             V[i] = p;
-            }
-         file.close();
-
-        //Tracé des notes
-        //painter.setPen(QPen(Qt::blue, 12, Qt::SolidLine, Qt::RoundCap));
-        for (int i = 0; i < V.size(); ++i) {
-            painter.drawText(V.at(i), quarter_note);
-        }
-
-
-        //Creation de la grille de la partition
-        painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap));
-        //horizontal
-        painter.drawLine(0, 50,50 + V.size()*100,50);
-        painter.drawLine(0, 75,50 + V.size()*100,75);
-        painter.drawLine(0, 100,50 + V.size()*100,100);
-        painter.drawLine(0, 125,50 + V.size()*100,125);
-        painter.drawLine(0, 150,50 + V.size()*100,150);
-
-        //vertical
-        for (int i = 0; i <= V.size()/4; ++i) {
-            painter.drawLine(i*400+50, 50,i*400+50,150);
-        }*/
+    painter.setBrush(QBrush(Qt::red));
+    pen = painter.pen();
+    pen.setColor(Qt::red);
+    painter.setPen(pen);
+    for(QMap<int,int>::const_iterator it = badNotes__.constBegin(); it != badNotes__.constEnd(); it++) {
+        drawQuarterNote__(painter, it.key()+1, it.value());
+    }
 }
 
 void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note) {
@@ -181,6 +152,7 @@ void PartitionWidget::playDemo() {
     lastNote__ = -1;
     currentIndex__ = 0;
     playing__ = true;
+    playingGame__ = false;
 
     update();
 
@@ -204,26 +176,32 @@ void PartitionWidget::playGame() {
     lastNote__ = -1;
     currentIndex__ = 0;
     playing__ = true;
+    playingGame__ = true;
 
     update();
 }
 
 void PartitionWidget::keyPushed(int key) {
-    lastNote__ = key;
+   if(key < 15) {
+       lastNote__ = key;
 
-    if(playing__) {
-        if(currentIndex__ < partition__.size()) {
-            if(partition__.at(currentIndex__) == key) {
-                goodNotes__[currentIndex__] = key;
-            } else {
-                badNotes__[currentIndex__] = key;
-            }
-            currentIndex__++;
-        } else {
-            //open popup
-            emit gameOver();
-        }
-    }
+       if(playing__) {
+           if(currentIndex__ < partition__.size()) {
+               if(partition__.at(currentIndex__) == key) {
+                   goodNotes__.insert(currentIndex__, key);
+               } else {
+                   badNotes__.insert(currentIndex__, key);
+               }
+               currentIndex__++;
+           }
+           if(currentIndex__ == partition__.size() && playingGame__) {
+               QMessageBox messageBox;
+               messageBox.setText(QString("Votre score: "+QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())));
+               messageBox.exec();
+               emit gameOver();
+           }
+       }
 
-    update();
+       update();
+   }
 }

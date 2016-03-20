@@ -10,8 +10,6 @@
 KeyboardWidget::KeyboardWidget(QWidget *parent)
     : QWidget(parent)
 {
-    timer__.setParent(this);
-
     layout__.setSpacing(0);
     layout__.setMargin(0);
 
@@ -26,23 +24,29 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     signalMapper__ = new QSignalMapper(this);
     connect(signalMapper__, SIGNAL(mapped(int)), this, SIGNAL(keyPushed(int)));
     connect(signalMapper__, SIGNAL(mapped(int)), this, SLOT(pushKey(int)));
+    connect(signalMapper__, SIGNAL(mapped(int)), this, SLOT(pullKey__(int)));
 
     QPushButton * button;
+    QTimer * timer;
     for(int i = 0; i < 15; i++) {
         button = new QPushButton(this);
+        timer = new QTimer(this);
         button->setFocusPolicy(Qt::NoFocus);
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        button->setStyleSheet("QPushButton {background-color: white; color: black;}");
         //button->setFlat(true);
         //button->setAutoFillBackground(true);
         //button->setIcon(QIcon(":/piano/skin/key.png"));
         //button->setIconSize();
 
+        timers__.append(timer);
         buttons__.append(button);
         layout__.addWidget(button);
 
         signalMapper__->setMapping(button, i);
         connect(button, SIGNAL(clicked()), signalMapper__, SLOT(map()));
-        signalMapper__->setMapping(button, i);
+        signalMapper__->setMapping(timer, i+15);
+        connect(timer, SIGNAL(timeout()), signalMapper__, SLOT(map()));
     }
 
     setStyle(QString("piano"));
@@ -85,10 +89,22 @@ void KeyboardWidget::showNotes(int state)
     }
 }
 
+void KeyboardWidget::pullKey__(int key) {
+    if(key >= 15) {
+        qDebug() << "pullKey__ " << key;
+        timers__.at(key-15)->stop();
+        buttons__.at(key-15)->setStyleSheet("QPushButton {background-color: white; color: black;}");
+    }
+}
+
 void KeyboardWidget::pushKey(int key)
 {
-    qDebug() << key << "pushed";
-    QSound::play(QString(":/keyboard/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
+    if(key < 15) {
+        qDebug() << key << "pushed";
+        buttons__.at(key)->setStyleSheet("QPushButton {background-color: blue; color: white;}");
+        QSound::play(QString(":/keyboard/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
+        timers__.at(key)->start(250);
+    }
 }
 
 void KeyboardWidget::setStyle(QString style)

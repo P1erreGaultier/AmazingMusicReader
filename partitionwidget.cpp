@@ -28,13 +28,21 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
     uBlackStar__ = QString("★");
     uWhiteStar__ = QString("☆");
 
-    heightY__ = 25;
-    lineWidthX__ = 3;
-    lineStartY__ = 5;
-    noteStartY__ = 2;
+    notes__.append(QString("DO"));
+    notes__.append(QString("RÉ"));
+    notes__.append(QString("MI"));
+    notes__.append(QString("FA"));
+    notes__.append(QString("SOL"));
+    notes__.append(QString("LA"));
+    notes__.append(QString("SI"));
 
-    currentIndex__ = -1;
+    heightY__ = 30;
+    lineWidthX__ = 6;
+    lineStartY__ = 5;
+    noteStartY__ = 20;
+
     lastNote__ = -1;
+    currentIndex__ = -1;
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -46,16 +54,19 @@ PartitionWidget::~PartitionWidget()
 
 void PartitionWidget::paintEvent(QPaintEvent *event)
 {
-    widthX__ = (partition__.size() + 1) * lineWidthX__ +1;
+    widthX__ = (partition__.size() + 1) * lineWidthX__ +2;
 
     QPainter painter(this);
     painter.setBrush(QBrush(Qt::black));
 
-    sizeX__ = this->width() / widthX__;
-    sizeY__ = this->height() / heightY__;
+    sizeX__ = width() / widthX__;
+    sizeY__ = height() / heightY__;
 
-    sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeY__: sizeX__;
+    //sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeY__: sizeX__;
 
+    if(currentIndex__ >= 0) {
+        drawProgressBar__(painter, currentIndex__);
+    }
 
     drawLinestaff5__(painter, 0);
     drawBarline__(painter, 0);
@@ -91,43 +102,85 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     }
     drawBarline__(painter, partition__.size()+1);
 
-    painter.setBrush(QBrush(Qt::green));
-    QPen pen = painter.pen();
-    pen.setColor(Qt::green);
-    painter.setPen(pen);
     for(QMap<int,int>::const_iterator it = goodNotes__.constBegin(); it != goodNotes__.constEnd(); it++) {
         drawQuarterNote__(painter, it.key()+1, it.value(), Qt::green, true);
     }
 
-    painter.setBrush(QBrush(Qt::red));
-    pen = painter.pen();
-    pen.setColor(Qt::red);
-    painter.setPen(pen);
     for(QMap<int,int>::const_iterator it = badNotes__.constBegin(); it != badNotes__.constEnd(); it++) {
         drawQuarterNote__(painter, it.key()+1, it.value(), Qt::red, true);
     }
 }
 
 void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note, const QColor & color, bool noteName) {
-    painter.drawEllipse(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2), sizeX__/2, sizeY__/2);
-    painter.drawLine(QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2+sizeX__/2,sizeY__*(note+noteStartY__-3)/2));
+    painter.setBrush(QBrush(Qt::black));
+    QPen pen = painter.pen();
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+
+    int x = sizeX__ + position*sizeX__*lineWidthX__ + sizeX__*lineWidthX__/2;
+    int y = (noteStartY__-note)*sizeY__;
+
     if(!(note%2)) {
-        painter.drawLine(QPoint(position*sizeX__*lineWidthX__, sizeY__*(note+noteStartY__)/2), QPoint(position*sizeX__*lineWidthX__+sizeX__*lineWidthX__/2, sizeY__*(note+noteStartY__)/2));
+        painter.drawLine(QPoint(x-2*sizeX__, y), QPoint(x+2*sizeX__, y));
+    }
+
+    painter.setBrush(QBrush(color));
+    pen.setColor(color);
+    painter.setPen(pen);
+    painter.drawEllipse(QPoint(x, y), sizeX__, sizeY__);
+    painter.drawLine(QPoint(x+sizeX__, y), QPoint(x+sizeX__,y-sizeY__*5));
+
+    x = sizeX__ + position*sizeX__*lineWidthX__ + sizeX__*2;
+    y = (noteStartY__+3)*sizeY__;
+
+    if(noteName) {
+        painter.drawText(x, y, notes__.at(note%notes__.size()));
     }
 }
 
 void PartitionWidget::drawBarline__(QPainter & painter, int position) {
-    painter.drawLine(QPoint(position*sizeX__*lineWidthX__, lineStartY__*sizeY__), QPoint(position*sizeX__*lineWidthX__, (lineStartY__+4)*sizeY__));
+    int x = sizeX__ + position*sizeX__*lineWidthX__;
+    int y1 = (noteStartY__-2)*sizeY__;
+    int y2 = y1-sizeY__*2*4;
+
+    painter.setBrush(QBrush(Qt::black));
+    QPen pen = painter.pen();
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+
+    painter.drawLine(QPoint(x, y1), QPoint(x, y2));
 }
 
 void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
+    painter.setBrush(QBrush(Qt::black));
+    QPen pen = painter.pen();
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+
+    int x1 = sizeX__ + position*sizeX__*lineWidthX__;
+    int x2 = x1 + sizeX__*lineWidthX__;
+    int y = (noteStartY__-2)*sizeY__;
+
     for(int i=0; i<5; i++) {
-        painter.drawLine(QPoint(position*sizeX__*lineWidthX__, (lineStartY__+i)*sizeY__), QPoint((position+1)*sizeX__*lineWidthX__, (lineStartY__+i)*sizeY__));
+        painter.drawLine(QPoint(x1, y-sizeY__*2*i), QPoint(x2, y-sizeY__*2*i));
     }
 }
 
 void PartitionWidget::drawGClef__(QPainter & painter, int position) {
 
+}
+
+void PartitionWidget::drawProgressBar__(QPainter & painter, int position) {
+    int x = sizeX__ + position*sizeX__*lineWidthX__ + sizeX__*lineWidthX__/2;
+    int y1 = (noteStartY__)*sizeY__;
+    int y2 = y1-sizeY__*2*6;
+
+    painter.setBrush(QBrush(Qt::blue));
+    QPen pen = painter.pen();
+    pen.setColor(Qt::blue);
+    painter.setPen(pen);
+
+    painter.drawLine(QPoint(x, y1), QPoint(x, y2));
 }
 
 void PartitionWidget::partitionChanged(const QString &partition) {
@@ -198,8 +251,11 @@ void PartitionWidget::keyPushed(int key) {
                }
                currentIndex__++;
            }
-           if(currentIndex__ == partition__.size() && playingGame__) {
+           if(currentIndex__ >= partition__.size() && playingGame__) {
                emit gameOver();
+
+               playing__ = playingGame__ = false;
+               currentIndex__ = -1;
 
                QString score = uBlackStar__.repeated((int)(goodNotes__.size()/partition__.size()*5.0+0.5));
                score.append(uWhiteStar__.repeated((int)(5.0-goodNotes__.size()/partition__.size()*5.0)));

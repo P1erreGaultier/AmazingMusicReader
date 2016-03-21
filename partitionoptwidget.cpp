@@ -7,10 +7,14 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 {
     demo__.setParent(this);
     demo__.setText(QString("Demo"));
+    demo__.setDisabled(true);
     play__.setParent(this);
     play__.setText(QString("Jouer"));
+    play__.setDisabled(true);
     difficulty__.setParent(this);
+    difficulty__.addItem(QString());
     partition__.setParent(this);
+    partition__.addItem(QString());
     difficultyLabel__.setParent(this);
     difficultyLabel__.setText(QString("Difficulté:"));
     partitionLabel__.setParent(this);
@@ -40,6 +44,7 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 void PartitionOptWidget::difficultyChanged__(const QString & text) {
     qInfo("difficulty combo box changed");
     partition__.clear();
+    partition__.addItem(QString());
     QDir dir(":/partition/"+text);
     QStringList dirList = dir.entryList();
     for(int i=0; i<dirList.size(); i++) {
@@ -49,6 +54,13 @@ void PartitionOptWidget::difficultyChanged__(const QString & text) {
 
 void PartitionOptWidget::partitionChanged__(const QString & text) {
     qInfo("partition combo box changed");
+    if(difficulty__.currentText().isEmpty() || partition__.currentText().isEmpty()) {
+        demo__.setDisabled(true);
+        play__.setDisabled(true);
+    } else {
+        demo__.setEnabled(true);
+        play__.setEnabled(true);
+    }
     emit partitionChanged(QString(":/partition/"+difficulty__.currentText()+"/"+text));
 }
 

@@ -50,6 +50,7 @@ private:
     void drawBarline__(QPainter & painter, int position);
     void drawLinestaff5__(QPainter & painter, int position);
     void drawGClef__(QPainter & painter, int position);
+    void drawProgressBar__(QPainter & painter, int position);
 
 signals:
     void pushKey(int key);

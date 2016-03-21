@@ -5,6 +5,9 @@
 
 PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 {
+    groupBox__.setParent(this);
+    groupBox__.setTitle(QString("Options de la partition"));
+    groupBox__.setStyleSheet(QString("QGroupBox{border:1px solid gray;border-radius:3px;margin-top:0.5em;}QGroupBox::title{subcontrol-origin:margin;left:4px;padding:0 2px 0 2px;}"));
     demo__.setParent(this);
     demo__.setText(QString("Demo"));
     demo__.setDisabled(true);
@@ -31,12 +34,16 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
         difficulty__.addItem(dirList.at(i));
     }
 
-    layout__.addWidget(&difficultyLabel__);
-    layout__.addWidget(&difficulty__);
-    layout__.addWidget(&partitionLabel__);
-    layout__.addWidget(&partition__);
-    layout__.addWidget(&demo__);
-    layout__.addWidget(&play__);
+    groupBoxLayout__.addWidget(&difficultyLabel__);
+    groupBoxLayout__.addWidget(&difficulty__);
+    groupBoxLayout__.addWidget(&partitionLabel__);
+    groupBoxLayout__.addWidget(&partition__);
+    groupBoxLayout__.addWidget(&demo__);
+    groupBoxLayout__.addWidget(&play__);
+
+    groupBox__.setLayout(&groupBoxLayout__);
+
+    layout__.addWidget(&groupBox__);
 
     setLayout(&layout__);
 }

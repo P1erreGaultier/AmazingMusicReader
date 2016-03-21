@@ -2,6 +2,7 @@
 #define PARTITIONOPTWIDGET_H
 
 #include <QComboBox>
+#include <QGroupBox>
 #include <QLabel>
 #include <QObject>
 #include <QPushButton>
@@ -16,6 +17,8 @@ public:
     explicit PartitionOptWidget(QWidget *parent = 0);
 
 private:
+    QGroupBox groupBox__;
+    QVBoxLayout groupBoxLayout__;
     QVBoxLayout layout__;
     QPushButton demo__;
     QPushButton play__;

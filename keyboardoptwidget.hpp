@@ -3,6 +3,7 @@
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QGroupBox>
 #include <QObject>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -14,6 +15,8 @@ public:
     explicit KeyboardOptWidget(QWidget *parent = 0);
 
 private:
+    QGroupBox groupBox__;
+    QVBoxLayout groupBoxLayout__;
     QVBoxLayout layout__;
     QCheckBox notesCheckBox__;
     QComboBox styleComboBox__;

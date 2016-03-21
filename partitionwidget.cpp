@@ -76,23 +76,6 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
         //draw GClef
     }
 
-    qDebug() << "refresh";
-
-    /*QFont font = painter.font();
-    font.setPointSize(font.pointSize() * 6);
-    painter.setFont(font);
-
-    QFontMetrics metrics(font, painter.device());
-    qDebug() << metrics.height();
-    qDebug() << metrics.width(uLineStaff5__);
-    qDebug() << metrics.size(0,uLineStaff5__);
-    qDebug() << metrics.size(0, uNoteheadBlack__);*/
-
-    /*painter.drawText(0,this->height()/2,uLineStaff5__);
-    painter.drawText(0,this->height()/2,uQuarterNote__);
-    painter.drawText(metrics.width(uLineStaff5__),this->height()/2,uLineStaff5__);
-    painter.drawText(metrics.width(uLineStaff5__),this->height()/2,uQuarterNote__);*/
-
     for(int i = 0; i<partition__.size(); i++) {
         if(i%4 == 0) {
             drawBarline__(painter, i+1);

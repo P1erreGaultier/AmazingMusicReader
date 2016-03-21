@@ -5,6 +5,12 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QComboBox>
+#include <QTreeWidget>
+#include <QTreeView>
+#include <QVector>
+#include <QStringList>
+#include <QVBoxLayout>
 
 /**
 * La classe qui represente l'onglet performance
@@ -17,14 +23,21 @@ public:
     explicit ScoreTabWidget(QWidget *parent = 0);
 
 private:
-    QGridLayout layout__;
-    QLabel labelText1__;
-    QLabel labelText2__;
-    QLabel labelText3__;
+    QVBoxLayout layout__;
+    QComboBox playerName__;
+    QTreeWidget scoreTree__;
+    QVector<QStringList> scores__;
+    QVector<QTreeWidgetItem*> items__;
+
+    void clearScoreTree__();
 
 signals:
 
+private slots:
+    void currentPlayerNameChanged__(const QString & text);
+
 public slots:
+    void updateScore();
 };
 
 #endif // SCORETABWIDGET_H

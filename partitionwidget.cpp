@@ -182,7 +182,7 @@ void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
  * @param position
  */
 void PartitionWidget::drawGClef__(QPainter & painter, int position) {
-
+    ;
 }
 
 void PartitionWidget::drawProgressBar__(QPainter & painter, int position) {
@@ -204,8 +204,10 @@ void PartitionWidget::drawProgressBar__(QPainter & painter, int position) {
  */
 void PartitionWidget::partitionChanged(const QString &partition) {
     partition__.clear();
+    goodNotes__.clear();
+    badNotes__.clear();
 
-    qDebug() << partition;
+    partitionName__ = partition;
 
     QFile file(partition);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -216,8 +218,6 @@ void PartitionWidget::partitionChanged(const QString &partition) {
         QString line = in.readLine();
         partition__.append(line.toInt());
     }
-
-    qDebug() << "OK";
 
     update();
 }
@@ -235,7 +235,7 @@ void PartitionWidget::playDemo() {
 
     update();
 
-    timer__.start(500);
+    timer__.start(750);
 }
 
 /**
@@ -284,8 +284,6 @@ void PartitionWidget::keyPushed(int key) {
                currentIndex__++;
            }
            if(currentIndex__ >= partition__.size() && playingGame__) {
-               emit gameOver();
-
                playing__ = playingGame__ = false;
                currentIndex__ = -1;
 
@@ -293,10 +291,10 @@ void PartitionWidget::keyPushed(int key) {
                score.append(uWhiteStar__.repeated((int)(5.0-goodNotes__.size()/partition__.size()*5.0)));
 
                if(playerName__.isEmpty()) {
-                   playerName__ = QInputDialog::getText(this, QString("Title"), QString("label")+score, QLineEdit::Normal, QString());
+                   playerName__ = QInputDialog::getText(this, QString("Résultat"), QString("Votre score:\n")+score+QString("\nVeuillez saisir votre nom pour enregistrer votre score."), QLineEdit::Normal, QString());
                } else {
                    QMessageBox messageBox;
-                   messageBox.setText(QString("Votre score: ")+score/*QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())*/);
+                   messageBox.setText(QString("Votre score:\n")+score/*QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())*/);
                    messageBox.exec();
                }
 
@@ -304,6 +302,7 @@ void PartitionWidget::keyPushed(int key) {
                    QString buff;
                    buff.append(playerName__).append(QString(";"));
                    buff.append(QDateTime::currentDateTime().toString()).append(QString(";"));
+                   buff.append(partitionName__).append(QString(";"));
                    buff.append(QString::number(goodNotes__.size())).append(QString(";"));
                    buff.append(QString::number(partition__.size())).append(QString(";"));
                    buff.append(QString("\n"));
@@ -314,6 +313,8 @@ void PartitionWidget::keyPushed(int key) {
                        scoreStream << buff;
                    }
                }
+
+               emit gameOver();
            }
        }
 

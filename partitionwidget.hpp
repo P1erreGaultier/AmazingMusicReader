@@ -54,6 +54,7 @@ private:
     bool playing__;
     bool playingGame__;
     QString playerName__;
+    QString partitionName__;
 
     void drawQuarterNote__(QPainter & painter, int position, int note, const QColor & color, bool noteName);
     void drawBarline__(QPainter & painter, int position);

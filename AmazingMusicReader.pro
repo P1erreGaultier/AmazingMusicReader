@@ -3,7 +3,7 @@
 # Alexis Giraudet
 #-------------------------------------------------
 
-QT += core gui widgets
+QT += core gui widgets multimedia
 
 TARGET = AmazingMusicReader
 TEMPLATE = app

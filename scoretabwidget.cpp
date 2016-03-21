@@ -1,6 +1,9 @@
 #include "scoretabwidget.hpp"
 #include <QComboBox>
 #include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QSet>
 
 /**
 * Constructeur
@@ -9,50 +12,71 @@
 */
 ScoreTabWidget::ScoreTabWidget(QWidget *parent) : QWidget(parent)
 {
-    QComboBox* facile = new QComboBox;
-        facile->addItem("partiton1",1);
-        facile->addItem("partiton2",2);
-        facile->addItem("partiton3",3);
-        facile->addItem("partiton4",4);
-        facile->addItem("partiton5",5);
-        facile->addItem("partiton6",6);
-        facile->addItem("partiton7",7);
+    playerName__.setParent(this);
+    scoreTree__.setParent(this);
 
-    QComboBox* intermediaire = new QComboBox;
-        intermediaire->addItem("partiton1",1);
-        intermediaire->addItem("partiton2",2);
-        intermediaire->addItem("partiton3",3);
-        intermediaire->addItem("partiton4",4);
-        intermediaire->addItem("partiton5",5);
-        intermediaire->addItem("partiton6",6);
-        intermediaire->addItem("partiton7",7);
+    //connect(&playerName__, SIGNAL(currentTextChanged(const QString&)), this, SLOT(currentPlayerNameChanged__(const QString&)));
 
-    QComboBox* difficile = new QComboBox;
-        difficile->addItem("partiton1",1);
-        difficile->addItem("partiton2",2);
-        difficile->addItem("partiton3",3);
-        difficile->addItem("partiton4",4);
-        difficile->addItem("partiton5",5);
-        difficile->addItem("partiton6",6);
-        difficile->addItem("partiton7",7);
+    updateScore();
 
-    labelText1__.setParent(this);
-    labelText1__.setWordWrap(true);
-    labelText1__.setText((QString("Facile:")));
-    labelText2__.setParent(this);
-    labelText2__.setWordWrap(true);
-    labelText2__.setText((QString("Intermediaire:")));
-    labelText3__.setParent(this);
-    labelText3__.setWordWrap(true);
-    labelText3__.setText((QString("Difficile:")));
-    layout__.addWidget(&labelText1__);
-    layout__.addWidget(facile,0,1);
-    layout__.addWidget(&labelText2__,1,0);
-    layout__.addWidget(intermediaire,1,1);
-    layout__.addWidget(&labelText3__,2,0);
-    layout__.addWidget(difficile,2,1);
-    layout__.setAlignment(Qt::AlignHCenter);
-    this->setLayout(&layout__);
+    layout__.addWidget(&playerName__);
+    layout__.addWidget(&scoreTree__);
+
+    setLayout(&layout__);
 }
 
-//
+void ScoreTabWidget::clearScoreTree__() {
+    QTreeWidgetItem * item;
+    QVectorIterator<QTreeWidgetItem*> itemIt(items__);
+
+    while(itemIt.hasNext()) {
+        item = itemIt.next();
+        scoreTree__.removeItemWidget(item, 0);
+        delete item;
+    }
+
+    scoreTree__.clear();
+}
+
+void ScoreTabWidget::updateScore() {
+    playerName__.clear();
+    //scoreTree__.clear();
+    clearScoreTree__();
+
+    playerName__.addItem(QString());
+
+    QSet<QString> playersNames;
+    int columnCount = 0;
+    QFile scoreFile(QString("score.csv"));
+    if (scoreFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QTextStream in(&scoreFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList lineSplit = line.split(QChar(';'));
+            scores__.append(lineSplit);
+            if(lineSplit.size() > columnCount) {
+                columnCount = lineSplit.size();
+            }
+            playersNames.insert(lineSplit.at(0));
+        }
+    }
+
+    for(QSet<QString>::const_iterator it = playersNames.constBegin(); it != playersNames.constEnd(); it++) {
+        playerName__.addItem(*it);
+    }
+
+    scoreTree__.setColumnCount(columnCount);
+    QList<QTreeWidgetItem *> items;
+    for (int i = 0; i < scores__.size(); ++i) {
+        if(playerName__.currentText().isEmpty() || playerName__.currentText() == scores__.at(i).at(0)) {
+            QTreeWidgetItem * item = new QTreeWidgetItem((QTreeWidget*)NULL, scores__.at(i));
+            items__.append(item);
+            items.append(item);
+        }
+    }
+    scoreTree__.insertTopLevelItems(0, items);
+}
+
+void ScoreTabWidget::currentPlayerNameChanged__(const QString & text) {
+    updateScore();
+}

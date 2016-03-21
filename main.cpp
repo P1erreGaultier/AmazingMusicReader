@@ -24,44 +24,43 @@
  * @param msg le message
  *
 */
-void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    QDateTime local(QDateTime::currentDateTime());
-    QString buffer;
-    buffer.append(local.toString());
-    buffer.append(QString(" "));
-    buffer.append(QString(context.file));
-    buffer.append(QString(":"));
-    buffer.append(QString::number(context.line));
-    buffer.append(QString(" "));
-    buffer.append(msg);
-    buffer.append(QString("\n"));
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context,
+                     const QString &msg) {
+  QDateTime local(QDateTime::currentDateTime());
+  QString buffer;
+  buffer.append(local.toString());
+  buffer.append(QString(" "));
+  buffer.append(QString(context.file));
+  buffer.append(QString(":"));
+  buffer.append(QString::number(context.line));
+  buffer.append(QString(" "));
+  buffer.append(msg);
+  buffer.append(QString("\n"));
 
-    QFile logFile(QString("AmazingMusicReader.log"));
-    if(logFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append)) {
-        QTextStream logStream(&logFile);
-        logStream << buffer;
-    }
+  QFile logFile(QString("AmazingMusicReader.log"));
+  if (logFile.open(QIODevice::WriteOnly | QIODevice::Text |
+                   QIODevice::Append)) {
+    QTextStream logStream(&logFile);
+    logStream << buffer;
+  }
 }
 
 /**
  * la fonction main
 */
-int main(int argc, char *argv[])
-{
-    qInstallMessageHandler(myMessageOutput);
-    QApplication app(argc, argv);
-    QTabWidget tabWidget;
-    HomeTabWidget homeWidget(tabWidget, &tabWidget);
-    PlayTabWidget playWidget(&tabWidget);
-    ScoreTabWidget scoreWidget(&tabWidget);
+int main(int argc, char *argv[]) {
+  qInstallMessageHandler(myMessageOutput);
+  QApplication app(argc, argv);
+  QTabWidget tabWidget;
+  HomeTabWidget homeWidget(tabWidget, &tabWidget);
+  PlayTabWidget playWidget(&tabWidget);
+  ScoreTabWidget scoreWidget(&tabWidget);
 
-    tabWidget.addTab(&homeWidget, QString("Accueil"));
-    tabWidget.addTab(&playWidget, QString("Jouer"));
-    tabWidget.addTab(&scoreWidget, QString("Progression"));
-    tabWidget.resize(800, 600);
-    tabWidget.show();
+  tabWidget.addTab(&homeWidget, QString("Accueil"));
+  tabWidget.addTab(&playWidget, QString("Jouer"));
+  tabWidget.addTab(&scoreWidget, QString("Progression"));
+  tabWidget.resize(800, 600);
+  tabWidget.show();
 
-    return app.exec();
+  return app.exec();
 }
-

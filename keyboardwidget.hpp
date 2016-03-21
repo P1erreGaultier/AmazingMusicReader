@@ -11,32 +11,31 @@
 * La classe qui represente le clavier
 * @aut
 */
-class KeyboardWidget : public QWidget
-{
-    Q_OBJECT
+class KeyboardWidget : public QWidget {
+  Q_OBJECT
 
 private:
-    QString style__;
-    QSignalMapper * signalMapper__;
-    QHBoxLayout layout__;
-    QVector<QTimer*> timers__;
-    QVector<QPushButton*> buttons__;
-    QVector<QString> notes__;
+  QString style__;
+  QSignalMapper *signalMapper__;
+  QHBoxLayout layout__;
+  QVector<QTimer *> timers__;
+  QVector<QPushButton *> buttons__;
+  QVector<QString> notes__;
 
 public:
-    explicit KeyboardWidget(QWidget *parent = 0);
-    ~KeyboardWidget();
+  explicit KeyboardWidget(QWidget *parent = 0);
+  ~KeyboardWidget();
 
 signals:
-    void keyPushed(int key);
+  void keyPushed(int key);
 
 private slots:
-    void pullKey__(int key);
+  void pullKey__(int key);
 
 public slots:
-    void showNotes(int state);
-    void pushKey(int key);
-    void setStyle(QString style);
+  void showNotes(int state);
+  void pushKey(int key);
+  void setStyle(QString style);
 };
 
 #endif // KEYBOARDWIDGET_HPP

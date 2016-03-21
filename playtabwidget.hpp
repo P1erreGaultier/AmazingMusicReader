@@ -16,18 +16,17 @@
 * La classe qui represente l'onglet de jeu
 * @author Alexis Giraudet & Pierre Gaultier
 */
-class PlayTabWidget : public QWidget
-{
-    Q_OBJECT
+class PlayTabWidget : public QWidget {
+  Q_OBJECT
 public:
-    explicit PlayTabWidget(QWidget *parent = 0);
+  explicit PlayTabWidget(QWidget *parent = 0);
 
 private:
-    QGridLayout layout__;
-    KeyboardWidget keyboard__;
-    KeyboardOptWidget keyboardOpt__;
-    PartitionWidget partition__;
-    PartitionOptWidget partitionOpt__;
+  QGridLayout layout__;
+  KeyboardWidget keyboard__;
+  KeyboardOptWidget keyboardOpt__;
+  PartitionWidget partition__;
+  PartitionOptWidget partitionOpt__;
 
 signals:
 

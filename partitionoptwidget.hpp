@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QPainter>
+#include <QSpacerItem>
 
 /**
 * La classe qui represente les options de la partition
@@ -26,6 +27,7 @@ public:
     explicit PartitionOptWidget(QWidget *parent = 0);
 
 private:
+    QSpacerItem space__;
     QGroupBox groupBox__;
     QVBoxLayout groupBoxLayout__;
     QVBoxLayout layout__;

@@ -7,7 +7,7 @@
 * Crée un KeyboardOptWidget
 * @param parent Widget parent
 */
-KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
+KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent),space__(0,0,QSizePolicy::Minimum,QSizePolicy::Expanding)
 {
     groupBox__.setParent(this);
     groupBox__.setTitle(QString("Options du clavier"));
@@ -21,9 +21,12 @@ KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
 
     connect(&notesCheckBox__, SIGNAL(stateChanged(int)), this, SLOT(showNotes__(int)));
 
+    groupBoxLayout__.addSpacerItem(&space__);
     groupBoxLayout__.addWidget(&notesCheckBox__);
+    groupBoxLayout__.addSpacerItem(&space__);
     groupBoxLayout__.addWidget(&styleLabel__);
     groupBoxLayout__.addWidget(&styleComboBox__);
+    groupBoxLayout__.addSpacerItem(&space__);
 
     groupBox__.setLayout(&groupBoxLayout__);
 

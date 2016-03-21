@@ -55,7 +55,7 @@ void ScoreTabWidget::scoreChanged__(const QString & file) {
         while (!in.atEnd()) {
             QString line = in.readLine();
             QStringList lineSplit = line.split(QChar(';'));
-            if(lineSplit.size() >= 4) {
+            if(lineSplit.size() >= 5) {
               scores__.append(lineSplit);
               players.insert(lineSplit.at(0));
             }
@@ -101,7 +101,7 @@ void ScoreTabWidget::playerNameChanged__(const QString & text) {
             item->setText(0, scores__.at(i).at(0));
             item->setText(1, scores__.at(i).at(1));
             item->setText(2, scores__.at(i).at(2));
-            item->setText(3, scores__.at(i).at(3));
+            item->setText(3, scores__.at(i).at(3)+QString("/")+scores__.at(i).at(4));
             items__.append(item);
             scoreTree__.addTopLevelItem(item);
         }

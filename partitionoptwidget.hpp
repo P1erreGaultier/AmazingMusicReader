@@ -10,10 +10,19 @@
 #include <QWidget>
 #include <QPainter>
 
+/**
+* La classe qui represente les options de la partition
+* @author Alexis Giraudet & Pierre Gaultier
+*/
 class PartitionOptWidget : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+    * Constructeur
+    * Crée un PartitionOptWidget
+    * @param Widget parent
+    */
     explicit PartitionOptWidget(QWidget *parent = 0);
 
 private:

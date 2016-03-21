@@ -2,6 +2,11 @@
 #include <QComboBox>
 #include <QString>
 
+/**
+* Constructeur
+* Crée un ScoreTabWidget
+* @param parent Widget parent
+*/
 ScoreTabWidget::ScoreTabWidget(QWidget *parent) : QWidget(parent)
 {
     QComboBox* facile = new QComboBox;

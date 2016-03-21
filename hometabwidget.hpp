@@ -10,10 +10,16 @@
 #include <QSignalMapper>
 #include <QTabWidget>
 
+/**
+* La classe qui represente l'onglet d'accueil
+* @author Alexis Giraudet & Pierre Gaultier
+*/
 class HomeTabWidget : public QWidget
 {
     Q_OBJECT
 public:
+
+
     explicit HomeTabWidget(QTabWidget & tabParent, QWidget *parent = 0);
 
 
@@ -29,6 +35,7 @@ private:
 signals:
 
 private slots:
+
     void scoreClicked();
     void playClicked();
 

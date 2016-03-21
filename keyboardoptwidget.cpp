@@ -2,6 +2,11 @@
 
 #include <QDir>
 
+/**
+* Constructeur
+* Crée un KeyboardOptWidget
+* @param parent Widget parent
+*/
 KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
 {
     groupBox__.setParent(this);
@@ -29,6 +34,10 @@ KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
     setLayout(&layout__);
 }
 
+
+/**
+* fonction qui envoie le signal pour afficher les notes sur le clavier
+*/
 void KeyboardOptWidget::showNotes__(int state) {
     emit showNotes(state);
 }

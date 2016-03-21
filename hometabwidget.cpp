@@ -3,6 +3,12 @@
 #include <QTabWidget>
 #include <QDebug>
 
+/**
+* Constructeur
+* Crée un HomeTabWidget
+* @param tabParent QtabWidget du main pour pouvoir agir sur les onglet de l'onglet parent
+* @param parent Widget parent
+*/
 HomeTabWidget::HomeTabWidget(QTabWidget & tabParent, QWidget *parent) : QWidget(parent), tabParent__(tabParent)
 {
     labelImage__.setParent(this);

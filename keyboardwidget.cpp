@@ -7,6 +7,11 @@
 #include <QSound>
 #include <QDebug>
 
+/**
+* Constructeur
+* Crée un KeyboardWidget
+* @param parent Widget parent
+*/
 KeyboardWidget::KeyboardWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -54,6 +59,9 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     setLayout(&layout__);
 }
 
+/**
+* Destructeur
+*/
 KeyboardWidget::~KeyboardWidget()
 {
     QPushButton * button;
@@ -67,7 +75,10 @@ KeyboardWidget::~KeyboardWidget()
         delete button;
     }
 }
-
+/**
+* Fonction qui affiche les notes sur le clavier, ou les cache
+* @param state etat de l'affichage des notes
+*/
 void KeyboardWidget::showNotes(int state)
 {
     QPushButton * button;
@@ -89,6 +100,10 @@ void KeyboardWidget::showNotes(int state)
     }
 }
 
+/**
+* Fonction qui change la forme d'une touche du clavier lors de son relachement
+* @param key la note entrée
+*/
 void KeyboardWidget::pullKey__(int key) {
     if(key >= 15) {
         qDebug() << "pullKey__ " << key;
@@ -97,6 +112,11 @@ void KeyboardWidget::pullKey__(int key) {
     }
 }
 
+
+/**
+* Fonction qui change la forme d'une touche du clavier lors de sa pression
+* @param key la note entrée
+*/
 void KeyboardWidget::pushKey(int key)
 {
     if(key < 15) {
@@ -107,6 +127,10 @@ void KeyboardWidget::pushKey(int key)
     }
 }
 
+/**
+* Fonction qui applique le style passé en parametre via la variable style__
+* @param style
+*/
 void KeyboardWidget::setStyle(QString style)
 {
     style__ = style;

@@ -8,10 +8,15 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+/**
+* La classe qui represente les options du clavier
+* @author Alexis Giraudet & Pierre Gaultier
+*/
 class KeyboardOptWidget : public QWidget
 {
     Q_OBJECT
 public:
+
     explicit KeyboardOptWidget(QWidget *parent = 0);
 
 private:
@@ -25,6 +30,7 @@ signals:
     void showNotes(int state);
 
 private slots:
+
     void showNotes__(int state);
 };
 

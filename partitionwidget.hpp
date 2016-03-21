@@ -8,11 +8,20 @@
 #include <QVector>
 #include <QWidget>
 
+/**
+* La classe qui represente la partition
+* @author Alexis Giraudet & Pierre Gaultier
+*/
 class PartitionWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    /**
+    * Constructeur
+    * Crée un PartitionWidget
+    * @param parent Widget parent
+    */
     explicit PartitionWidget(QWidget *parent = 0);
     ~PartitionWidget();
 

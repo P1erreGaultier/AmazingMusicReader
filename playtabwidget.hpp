@@ -12,6 +12,10 @@
 #include <QPushButton>
 #include <QWidget>
 
+/**
+* La classe qui represente l'onglet de jeu
+* @author Alexis Giraudet & Pierre Gaultier
+*/
 class PlayTabWidget : public QWidget
 {
     Q_OBJECT

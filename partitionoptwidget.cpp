@@ -3,6 +3,11 @@
 #include <QDir>
 #include <QDebug>
 
+/**
+* Constructeur
+* Crée un PartitionOptWidget
+* @param parent Widget parent
+*/
 PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 {
     groupBox__.setParent(this);
@@ -49,7 +54,10 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 
     setLayout(&layout__);
 }
-
+/**
+ * Fonction qui change les partitions disponibles quand la difficulté est modifié
+ * @param text la nouvelle difficulté
+ */
 void PartitionOptWidget::difficultyChanged__(const QString & text) {
     qInfo("difficulty combo box changed");
     partition__.clear();
@@ -61,6 +69,10 @@ void PartitionOptWidget::difficultyChanged__(const QString & text) {
     }
 }
 
+/**
+ * Fonction qui active les boutons demo et jouer et charge une partition quand elle est selectionnée
+ * @param text la partition
+ */
 void PartitionOptWidget::partitionChanged__(const QString & text) {
     qInfo("partition combo box changed");
     if(difficulty__.currentText().isEmpty() || partition__.currentText().isEmpty()) {
@@ -72,13 +84,18 @@ void PartitionOptWidget::partitionChanged__(const QString & text) {
     }
     emit partitionChanged(QString(":/partition/"+difficulty__.currentText()+"/"+text));
 }
-
+/**
+ * Fonction qui envoie le signal pour jouer la demo de la partition selectionée
+ */
 void PartitionOptWidget::playDemo__() {
     qInfo("demo button clicked");
     disable();
     emit playDemo();
 }
 
+/**
+ * Fonction qui envoie le signal pour lancer la partie de la partition selectionée
+ */
 void PartitionOptWidget::playGame__() {
     qInfo("play button clicked");
     disable();

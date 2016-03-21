@@ -13,6 +13,11 @@
 #include <QFontMetrics>
 #include <QInputDialog>
 
+/**
+* Constructeur
+* Crée un PartitionWidget
+* @param parent Widget parent
+*/
 PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 {
     timer__.setParent(this);
@@ -46,12 +51,17 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
-
+/**
+ * Destructeur
+ */
 PartitionWidget::~PartitionWidget()
 {
     ;
 }
-
+/**
+ * Fonction qui dessine en fonction du parametre
+ * @param event ce qu'il faut dessiner
+ */
 void PartitionWidget::paintEvent(QPaintEvent *event)
 {
     widthX__ = (partition__.size() + 1) * lineWidthX__ +2;
@@ -96,6 +106,14 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     }
 }
 
+/**
+ * Fonction qui dessine une note
+ * @param painter
+ * @param position
+ * @param note
+ * @param color
+ * @param noteName
+ */
 void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int note, const QColor & color, bool noteName) {
     painter.setBrush(QBrush(Qt::black));
     QPen pen = painter.pen();
@@ -122,7 +140,11 @@ void PartitionWidget::drawQuarterNote__(QPainter & painter, int position, int no
         painter.drawText(x, y, notes__.at(note%notes__.size()));
     }
 }
-
+/**
+ * Fonction qui dessine une ligne
+ * @param painter
+ * @param position
+ */
 void PartitionWidget::drawBarline__(QPainter & painter, int position) {
     int x = sizeX__ + position*sizeX__*lineWidthX__;
     int y1 = (noteStartY__-2)*sizeY__;
@@ -135,7 +157,11 @@ void PartitionWidget::drawBarline__(QPainter & painter, int position) {
 
     painter.drawLine(QPoint(x, y1), QPoint(x, y2));
 }
-
+/**
+ * Fonction qui dessine une ligne
+ * @param painter
+ * @param position
+ */
 void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
     painter.setBrush(QBrush(Qt::black));
     QPen pen = painter.pen();
@@ -150,7 +176,11 @@ void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
         painter.drawLine(QPoint(x1, y-sizeY__*2*i), QPoint(x2, y-sizeY__*2*i));
     }
 }
-
+/**
+ * @brief PartitionWidget::drawGClef__
+ * @param painter
+ * @param position
+ */
 void PartitionWidget::drawGClef__(QPainter & painter, int position) {
 
 }
@@ -168,6 +198,10 @@ void PartitionWidget::drawProgressBar__(QPainter & painter, int position) {
     painter.drawLine(QPoint(x, y1), QPoint(x, y2));
 }
 
+/**
+ * Fonction qui redessine la partition si une nouvelle est selectionnée
+ * @param partition
+ */
 void PartitionWidget::partitionChanged(const QString &partition) {
     partition__.clear();
 
@@ -188,6 +222,9 @@ void PartitionWidget::partitionChanged(const QString &partition) {
     update();
 }
 
+/**
+ * Fonction qui joue la demo de la partition selectionnée
+ */
 void PartitionWidget::playDemo() {
     goodNotes__.clear();
     badNotes__.clear();
@@ -201,6 +238,9 @@ void PartitionWidget::playDemo() {
     timer__.start(500);
 }
 
+/**
+ * Fonction qui joue la demo de la partition selectionnée
+ */
 void PartitionWidget::playDemo__() {
     if(partition__.size() == (goodNotes__.size()+badNotes__.size())) {
         timer__.stop();
@@ -212,6 +252,9 @@ void PartitionWidget::playDemo__() {
     }
 }
 
+/**
+ * Fonction qui lance le jeu de la partition selectionnée
+ */
 void PartitionWidget::playGame() {
     goodNotes__.clear();
     badNotes__.clear();
@@ -223,6 +266,10 @@ void PartitionWidget::playGame() {
     update();
 }
 
+/**
+ * Fonction qui gere les evenement suite a la pression d'une touche
+ * @param key
+ */
 void PartitionWidget::keyPushed(int key) {
    if(key < 15) {
        lastNote__ = key;

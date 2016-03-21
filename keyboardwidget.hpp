@@ -7,6 +7,9 @@
 #include <QTimer>
 #include <QWidget>
 
+/**
+* La classe qui represente le clavier
+* @aut
 class KeyboardWidget : public QWidget
 {
     Q_OBJECT

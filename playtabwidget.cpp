@@ -1,5 +1,10 @@
 #include "playtabwidget.hpp"
 
+/**
+* Constructeur
+* Crée un PlayTabWidget
+* @param parent Widget parent
+*/
 PlayTabWidget::PlayTabWidget(QWidget *parent) : QWidget(parent)
 {
     keyboard__.setParent(this);

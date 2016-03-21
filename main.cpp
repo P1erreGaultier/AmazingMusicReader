@@ -12,6 +12,18 @@
 #include <QPalette>
 #include <QDebug>
 
+/**
+* La classe main qui lance l'application
+* @author Alexis Giraudet & Pierre Gaultier
+*/
+
+/**
+ * Fonction qui log des information dans le fichier de log
+ * @param type le type du message
+ * @param context le context du message
+ * @param msg le message
+ *
+*/
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     QDateTime local(QDateTime::currentDateTime());
@@ -32,6 +44,9 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     }
 }
 
+/**
+ * la fonction main
+*/
 int main(int argc, char *argv[])
 {
     qInstallMessageHandler(myMessageOutput);

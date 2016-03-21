@@ -78,5 +78,6 @@ void ScoreTabWidget::updateScore() {
 }
 
 void ScoreTabWidget::currentPlayerNameChanged__(const QString & text) {
+    qInfo("player name combo box changed");
     updateScore();
 }

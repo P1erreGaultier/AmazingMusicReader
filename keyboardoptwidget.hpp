@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QLabel>
 
 /**
 * La classe qui represente les options du clavier
@@ -25,6 +26,7 @@ private:
     QVBoxLayout layout__;
     QCheckBox notesCheckBox__;
     QComboBox styleComboBox__;
+    QLabel styleLabel__;
 
 signals:
     void showNotes(int state);

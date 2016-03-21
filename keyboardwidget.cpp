@@ -106,7 +106,6 @@ void KeyboardWidget::showNotes(int state)
 */
 void KeyboardWidget::pullKey__(int key) {
     if(key >= 15) {
-        qDebug() << "pullKey__ " << key;
         timers__.at(key-15)->stop();
         buttons__.at(key-15)->setStyleSheet("QPushButton {background-color: white; color: black;}");
     }
@@ -120,7 +119,7 @@ void KeyboardWidget::pullKey__(int key) {
 void KeyboardWidget::pushKey(int key)
 {
     if(key < 15) {
-        qDebug() << key << "pushed";
+        qInfo("keyboard key pushed");
         buttons__.at(key)->setStyleSheet("QPushButton {background-color: blue; color: white;}");
         QSound::play(QString(":/keyboard/")+style__+QString("/audio/")+QString::number(key)+QString(".wav"));
         timers__.at(key)->start(250);

@@ -49,9 +49,11 @@ HomeTabWidget::HomeTabWidget(QTabWidget & tabParent, QWidget *parent) : QWidget(
 }
 
 void HomeTabWidget::scoreClicked() {
+    qInfo("play button clicked");
     tabParent__.setCurrentIndex(2);
 }
 
 void HomeTabWidget::playClicked() {
+    qInfo("score button clicked");
     tabParent__.setCurrentIndex(1);
 }

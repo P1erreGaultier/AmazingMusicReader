@@ -12,6 +12,7 @@
 #include <QThread>
 #include <QFontMetrics>
 #include <QInputDialog>
+#include <QDebug>
 
 /**
 * Constructeur
@@ -48,6 +49,7 @@ PartitionWidget::PartitionWidget(QWidget *parent) : QWidget(parent)
 
     lastNote__ = -1;
     currentIndex__ = -1;
+    playing__ = playingGame__ = false;
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -85,7 +87,7 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     if(lastNote__ >= 0) {
         drawQuarterNote__(painter, 0, lastNote__, Qt::blue, true);
     } else {
-        //draw GClef
+        drawGClef__(painter, 0);
     }
 
     for(int i = 0; i<partition__.size(); i++) {
@@ -182,7 +184,11 @@ void PartitionWidget::drawLinestaff5__(QPainter & painter, int position) {
  * @param position
  */
 void PartitionWidget::drawGClef__(QPainter & painter, int position) {
-    ;
+    QFont font = painter.font();
+    font.setPixelSize(sizeY__*12);
+    painter.setFont(font);
+
+    painter.drawText(0, (noteStartY__-2)*sizeY__, uGClef__);
 }
 
 void PartitionWidget::drawProgressBar__(QPainter & painter, int position) {
@@ -287,11 +293,11 @@ void PartitionWidget::keyPushed(int key) {
                playing__ = playingGame__ = false;
                currentIndex__ = -1;
 
-               QString score = uBlackStar__.repeated((int)(goodNotes__.size()/partition__.size()*5.0+0.5));
-               score.append(uWhiteStar__.repeated((int)(5.0-goodNotes__.size()/partition__.size()*5.0)));
+               QString score = uBlackStar__.repeated(((double)goodNotes__.size())/((double)partition__.size())*5.0+0.5);
+               score.append(uWhiteStar__.repeated(5.0-((double)goodNotes__.size())/((double)partition__.size())*5.0));
 
                if(playerName__.isEmpty()) {
-                   playerName__ = QInputDialog::getText(this, QString("Résultat"), QString("Votre score:\n")+score+QString("\nVeuillez saisir votre nom pour enregistrer votre score."), QLineEdit::Normal, QString());
+                   playerName__ = QInputDialog::getText(this, QString("Résultat"), QString("Votre score:\n")+QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())+QString("\n")+score+QString("\nVeuillez saisir votre nom pour enregistrer votre score."), QLineEdit::Normal, QString());
                } else {
                    QMessageBox messageBox;
                    messageBox.setText(QString("Votre score:\n")+score/*QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())*/);

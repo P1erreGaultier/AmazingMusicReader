@@ -15,10 +15,14 @@ KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
     notesCheckBox__.setParent(this);
     notesCheckBox__.setText(QString("Afficher les notes"));
     styleComboBox__.setParent(this);
+    styleLabel__.setParent(this);
+    styleLabel__.setText(QString("Style du clavier:"));
+    styleLabel__.setAlignment(Qt::AlignBottom);
 
     connect(&notesCheckBox__, SIGNAL(stateChanged(int)), this, SLOT(showNotes__(int)));
 
     groupBoxLayout__.addWidget(&notesCheckBox__);
+    groupBoxLayout__.addWidget(&styleLabel__);
     groupBoxLayout__.addWidget(&styleComboBox__);
 
     groupBox__.setLayout(&groupBoxLayout__);
@@ -39,5 +43,6 @@ KeyboardOptWidget::KeyboardOptWidget(QWidget *parent) : QWidget(parent)
 * fonction qui envoie le signal pour afficher les notes sur le clavier
 */
 void KeyboardOptWidget::showNotes__(int state) {
+    qInfo("show note check box clicked");
     emit showNotes(state);
 }

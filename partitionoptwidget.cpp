@@ -27,8 +27,10 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
     partition__.addItem(QString());
     difficultyLabel__.setParent(this);
     difficultyLabel__.setText(QString("Difficulté:"));
+    difficultyLabel__.setAlignment(Qt::AlignBottom);
     partitionLabel__.setParent(this);
     partitionLabel__.setText(QString("Partition:"));
+    partitionLabel__.setAlignment(Qt::AlignBottom);
 
     connect(&difficulty__, SIGNAL(currentTextChanged(const QString &)), this, SLOT(difficultyChanged__(const QString &)));
     connect(&partition__, SIGNAL(currentTextChanged(const QString &)), this, SLOT(partitionChanged__(const QString &)));

@@ -11,6 +11,7 @@
 #include <QVector>
 #include <QStringList>
 #include <QVBoxLayout>
+#include <QFileSystemWatcher>
 
 /**
 * La classe qui represente l'onglet performance
@@ -21,23 +22,24 @@ class ScoreTabWidget : public QWidget
     Q_OBJECT
 public:
     explicit ScoreTabWidget(QWidget *parent = 0);
+    ~ScoreTabWidget();
 
 private:
     QVBoxLayout layout__;
+    QLabel playerNameLabel__;
     QComboBox playerName__;
     QTreeWidget scoreTree__;
-    QVector<QStringList> scores__;
     QVector<QTreeWidgetItem*> items__;
-
-    void clearScoreTree__();
+    QVector<QStringList> scores__;
+    QFileSystemWatcher scoreWatcher__;
 
 signals:
 
 private slots:
-    void currentPlayerNameChanged__(const QString & text);
+    void playerNameChanged__(const QString & text);
+    void scoreChanged__(const QString & file);
 
 public slots:
-    void updateScore();
 };
 
 #endif // SCORETABWIDGET_H

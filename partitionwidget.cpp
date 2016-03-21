@@ -298,6 +298,7 @@ void PartitionWidget::keyPushed(int key) {
 
                if(playerName__.isEmpty()) {
                    playerName__ = QInputDialog::getText(this, QString("Résultat"), QString("Votre score:\n")+QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())+QString("\n")+score+QString("\nVeuillez saisir votre nom pour enregistrer votre score."), QLineEdit::Normal, QString());
+                playerName__.remove(QChar(';'));
                } else {
                    QMessageBox messageBox;
                    messageBox.setText(QString("Votre score:\n")+score/*QString::number(goodNotes__.size())+QString("/")+QString::number(partition__.size())*/);

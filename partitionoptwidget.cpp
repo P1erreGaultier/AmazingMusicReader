@@ -25,6 +25,7 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
     difficulty__.addItem(QString());
     partition__.setParent(this);
     partition__.addItem(QString());
+    partition__.setDisabled(true);
     difficultyLabel__.setParent(this);
     difficultyLabel__.setText(QString("Difficulté:"));
     difficultyLabel__.setAlignment(Qt::AlignBottom);
@@ -64,10 +65,16 @@ void PartitionOptWidget::difficultyChanged__(const QString & text) {
     qInfo("difficulty combo box changed");
     partition__.clear();
     partition__.addItem(QString());
-    QDir dir(":/partition/"+text);
-    QStringList dirList = dir.entryList();
-    for(int i=0; i<dirList.size(); i++) {
-        partition__.addItem(dirList.at(i));
+    if(!text.isEmpty()) {
+        partition__.setEnabled(true);
+
+        QDir dir(":/partition/"+text);
+        QStringList dirList = dir.entryList();
+        for(int i=0; i<dirList.size(); i++) {
+            partition__.addItem(dirList.at(i));
+        }
+    } else {
+        partition__.setDisabled(true);
     }
 }
 

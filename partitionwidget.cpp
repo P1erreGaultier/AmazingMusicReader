@@ -64,8 +64,8 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
 
     //sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeY__: sizeX__;
 
-    if(currentIndex__ >= 0) {
-        drawProgressBar__(painter, currentIndex__);
+    if(currentIndex__ >= 0 && currentIndex__ < partition__.size()) {
+        drawProgressBar__(painter, currentIndex__+1);
     }
 
     drawLinestaff5__(painter, 0);

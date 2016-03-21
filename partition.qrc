@@ -1,8 +1,25 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>partition/easy/partition1.txt</file>
-    <file>partition/medium/partition1.txt</file>
-    <file>partition/hard/partition1.txt</file>
-    <file>partition/hard/partition2.txt</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>partition/easy/partition1.txt</file>
+        <file>partition/medium/partition1.txt</file>
+        <file>partition/hard/partition1.txt</file>
+        <file>partition/hard/partition2.txt</file>
+        <file>partition/easy/partition7.txt</file>
+        <file>partition/easy/partition6.txt</file>
+        <file>partition/easy/partition5.txt</file>
+        <file>partition/easy/partition4.txt</file>
+        <file>partition/easy/partition3.txt</file>
+        <file>partition/easy/partition2.txt</file>
+        <file>partition/medium/partition7.txt</file>
+        <file>partition/medium/partition6.txt</file>
+        <file>partition/medium/partition5.txt</file>
+        <file>partition/medium/partition4.txt</file>
+        <file>partition/medium/partition3.txt</file>
+        <file>partition/medium/partition2.txt</file>
+        <file>partition/hard/partition7.txt</file>
+        <file>partition/hard/partition6.txt</file>
+        <file>partition/hard/partition5.txt</file>
+        <file>partition/hard/partition4.txt</file>
+        <file>partition/hard/partition3.txt</file>
+    </qresource>
 </RCC>

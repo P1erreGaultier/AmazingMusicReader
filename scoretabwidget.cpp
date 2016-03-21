@@ -17,6 +17,12 @@ ScoreTabWidget::ScoreTabWidget(QWidget *parent) : QWidget(parent) {
   playerNameLabel__.setText(QString("Filtrer les résultats pour le joueur:"));
   playerName__.setParent(this);
   scoreTree__.setParent(this);
+
+  QFile scoreFile(QString("score.csv"));
+  if (!scoreFile.exists()) {
+    scoreFile.open(QIODevice::WriteOnly);
+    scoreFile.close();
+  }
   scoreWatcher__.setParent(this);
   scoreWatcher__.addPath(QString("score.csv"));
 

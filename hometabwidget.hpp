@@ -8,23 +8,29 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QSignalMapper>
+#include <QTabWidget>
 
 class HomeTabWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit HomeTabWidget(QWidget *parent = 0);
+    explicit HomeTabWidget(QTabWidget & tabParent, QWidget *parent = 0);
 
 
 private:
+    QTabWidget & tabParent__;
     QLabel labelImage__;
     QLabel labelText__;
     QVBoxLayout layout__;
-    QPushButton *btnPerformance;
-    QPushButton *btnJouer;
+    QPushButton buttonScore__;
+    QPushButton buttonPlay__;
 
 
 signals:
+
+private slots:
+    void scoreClicked();
+    void playClicked();
 
 public slots:
 };

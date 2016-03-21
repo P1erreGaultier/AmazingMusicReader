@@ -10,6 +10,7 @@
 #include <QTabWidget>
 #include <QTextStream>
 #include <QPalette>
+#include <QDebug>
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
@@ -36,9 +37,9 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(myMessageOutput);
     QApplication app(argc, argv);
     QTabWidget tabWidget;
-    HomeTabWidget homeWidget;
-    PlayTabWidget playWidget;
-    ScoreTabWidget scoreWidget;
+    HomeTabWidget homeWidget(tabWidget, &tabWidget);
+    PlayTabWidget playWidget(&tabWidget);
+    ScoreTabWidget scoreWidget(&tabWidget);
 
     tabWidget.addTab(&homeWidget, QString("Accueil"));
     tabWidget.addTab(&playWidget, QString("Jouer"));

@@ -62,6 +62,8 @@ void PartitionWidget::paintEvent(QPaintEvent *event)
     sizeX__ = width() / widthX__;
     sizeY__ = height() / heightY__;
 
+    sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeX__: sizeY__;
+
     //sizeX__ = sizeY__ = (sizeX__ < sizeY__)? sizeY__: sizeX__;
 
     if(currentIndex__ >= 0 && currentIndex__ < partition__.size()) {

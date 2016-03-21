@@ -9,10 +9,12 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
     groupBox__.setTitle(QString("Options de la partition"));
     groupBox__.setStyleSheet(QString("QGroupBox{border:1px solid gray;border-radius:3px;margin-top:0.5em;}QGroupBox::title{subcontrol-origin:margin;left:4px;padding:0 2px 0 2px;}"));
     demo__.setParent(this);
-    demo__.setText(QString("Demo"));
+    demo__.setText(QString("Démo"));
+    demo__.setStyleSheet(QString("QPushButton{font-size:18pt;font-weight:bold;}"));
     demo__.setDisabled(true);
     play__.setParent(this);
     play__.setText(QString("Jouer"));
+    play__.setStyleSheet(QString("QPushButton{font-size:18pt;font-weight:bold;}"));
     play__.setDisabled(true);
     difficulty__.setParent(this);
     difficulty__.addItem(QString());

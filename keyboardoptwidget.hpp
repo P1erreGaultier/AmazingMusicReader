@@ -8,7 +8,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QLabel>
-#include <QSpacerItem>
 
 /**
 * La classe qui represente les options du clavier
@@ -22,7 +21,6 @@ public:
     explicit KeyboardOptWidget(QWidget *parent = 0);
 
 private:
-    QSpacerItem space__;
     QGroupBox groupBox__;
     QVBoxLayout groupBoxLayout__;
     QVBoxLayout layout__;

@@ -8,8 +8,7 @@
 * Crée un PartitionOptWidget
 * @param parent Widget parent
 */
-PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent),
-    space__(0,0,QSizePolicy::Minimum,QSizePolicy::Expanding)
+PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent)
 {
     groupBox__.setParent(this);
     groupBox__.setTitle(QString("Options de la partition"));
@@ -45,16 +44,16 @@ PartitionOptWidget::PartitionOptWidget(QWidget *parent) : QWidget(parent),
         difficulty__.addItem(dirList.at(i));
     }
 
-    groupBoxLayout__.addSpacerItem(&space__);
+    groupBoxLayout__.addStretch();
     groupBoxLayout__.addWidget(&difficultyLabel__);
     groupBoxLayout__.addWidget(&difficulty__);
-    groupBoxLayout__.addSpacerItem(&space__);
+    groupBoxLayout__.addStretch();
     groupBoxLayout__.addWidget(&partitionLabel__);
     groupBoxLayout__.addWidget(&partition__);
-    groupBoxLayout__.addSpacerItem(&space__);
+    groupBoxLayout__.addStretch();
     groupBoxLayout__.addWidget(&demo__);
     groupBoxLayout__.addWidget(&play__);
-    groupBoxLayout__.addSpacerItem(&space__);
+    groupBoxLayout__.addStretch();
 
     groupBox__.setLayout(&groupBoxLayout__);
 

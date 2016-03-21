@@ -9,7 +9,6 @@
 #include <QPushButton>
 #include <QSignalMapper>
 #include <QTabWidget>
-#include <QSpacerItem>
 
 /**
 * La classe qui represente l'onglet d'accueil
@@ -22,7 +21,6 @@ public:
     explicit HomeTabWidget(QTabWidget & tabParent, QWidget *parent = 0);
 
 private:
-    QSpacerItem space__;
     QTabWidget & tabParent__;
     QLabel labelImage__;
     QLabel labelText__;
